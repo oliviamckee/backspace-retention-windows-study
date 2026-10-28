@@ -1,0 +1,17 @@
+{
+  "method": "lightweight-windows-backspace-gate-v3-delete-key",
+  "status": "success",
+  "started_utc": "2026-10-28T03:09:22.831145+00:00",
+  "finished_utc": "2026-10-28T03:10:24.901837+00:00",
+  "transcript_path": "C:\\Users\\12149\\Documents\\Codex\\2026-10-27\\https-github-com-tmccoy678-backspace-text\\outputs\\backspace-experiment-20261027-220922.typescript",
+  "transcript_bytes": 401,
+  "transcript_sha256": "438e6c416598adcb7eb1cdce8dd7c70b0a0be99fe5dc9d58d148cb7fe2a2d154",
+  "erase_triplet_count": 23,
+  "committed_policy": "any nonempty ASCII line",
+  "delete_key_erase_count": 23,
+  "backspace_key_erase_count": 0,
+  "receiver_started": true,
+  "receiver_output_sha256": "6d9745ed031648871ee5299f693d22e2ae2373bf6a2625c935ea0a3fc1c33939",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "win32"
+}

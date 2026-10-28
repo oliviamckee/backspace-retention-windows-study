@@ -1,0 +1,15 @@
+{
+  "method": "lightweight-windows-backspace-gate-v1",
+  "status": "control_mismatch",
+  "started_utc": "2026-10-28T02:53:09.766244+00:00",
+  "finished_utc": "2026-10-28T02:58:56.144141+00:00",
+  "transcript_path": "C:\\Users\\12149\\Documents\\Codex\\2026-10-27\\https-github-com-tmccoy678-backspace-text\\outputs\\backspace-experiment-20261027-215309.typescript",
+  "transcript_bytes": 318,
+  "transcript_sha256": "179a7cdbbd5a9d5c01f3bbb69f56bbeb1e388a05a2373725ecc8227c1e5eb015",
+  "erase_triplet_count": 25,
+  "committed_control": "CONTROL_OK",
+  "receiver_started": false,
+  "receiver_output_sha256": null,
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "win32"
+}

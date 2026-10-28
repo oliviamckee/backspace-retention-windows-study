@@ -1,0 +1,34 @@
+# Codebook
+
+## Trial identifiers
+
+- `A0`: administrative launch that was aborted after the hidden terminal panel
+  failed to appear; no experimental phrase was entered.
+- `P1`: Python simulation v1 with a `CONTROL_OK` committed-control requirement.
+- `P2`: Python simulation v2 with a plain-English committed-control requirement.
+- `P3`: Python simulation v3; physical Windows Del events were mapped by the
+  harness to backward erase and any nonempty committed line was accepted.
+- `N0`: scripted native ConPTY control (`alpha` erased, `omega` committed).
+- `N1`: physical-key native ConPTY trial using Backspace.
+
+## Field meanings
+
+- `pipeline_status`: status written by the collection program. It is not an
+  independently confirmed recovery score.
+- `recovery_candidate`: the literal printable draft recovered immediately
+  before its erasure structure in the raw transcript.
+- `committed_line`: the line visible after the erasure region and, when a child
+  was launched, reported by that child.
+- `operator_exact_confirmation`: whether the operator separately confirmed the
+  recovered draft after it was reported. No such confirmation was collected.
+- `erase_triplets_08_20_08`: number of exact backspace-space-backspace byte
+  triplets in the relevant transcript.
+- `edge_erase_0d_20_0d`: number of carriage-return-space-carriage-return erases
+  observed at the left screen edge.
+
+## Method boundary
+
+The Python trials are explicit simulations: the harness maintained the editable
+buffer and wrote a transcript. `N1` is a native Windows mechanism trial: the
+host forwarded keyboard input to ConPTY and recorded its output pipe, while the
+Windows console line editor maintained the child's buffer.

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Native Windows ConPTY recorder and application boundary</title>
+  <desc id="desc">A two-panel diagram showing physical keys entering a ConPTY host, Windows processed line editing, a recorded output stream retaining erased text, and a child receiving only the committed line. The lower panel shows the exact native trial byte regions.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 28px system-ui, sans-serif; fill: #0f172a; }
+      .subtitle { font: 600 18px system-ui, sans-serif; fill: #334155; }
+      .body { font: 16px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 14px system-ui, sans-serif; fill: #334155; }
+      .mono { font: 15px ui-monospace, SFMono-Regular, Consolas, monospace; fill: #0f172a; }
+      .box { stroke: #334155; stroke-width: 2; rx: 12; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1200" height="720" fill="#ffffff"/>
+  <text x="50" y="48" class="title">Figure 1. Native ConPTY recorder and commit boundary</text>
+
+  <text x="50" y="88" class="subtitle">A. Data flow</text>
+
+  <rect x="50" y="118" width="180" height="105" class="box" fill="#e0f2fe"/>
+  <text x="140" y="153" text-anchor="middle" class="body">Physical keyboard</text>
+  <text x="140" y="181" text-anchor="middle" class="small">19 Backspaces</text>
+  <text x="140" y="204" text-anchor="middle" class="small">0 Home · 0 Del</text>
+
+  <rect x="300" y="118" width="210" height="105" class="box" fill="#f1f5f9"/>
+  <text x="405" y="153" text-anchor="middle" class="body">ConPTY host</text>
+  <text x="405" y="181" text-anchor="middle" class="small">forwards key input</text>
+  <text x="405" y="204" text-anchor="middle" class="small">records output pipe</text>
+
+  <rect x="580" y="118" width="250" height="105" class="box" fill="#fef3c7"/>
+  <text x="705" y="153" text-anchor="middle" class="body">Windows line editor</text>
+  <text x="705" y="181" text-anchor="middle" class="small">processed · line · echo</text>
+  <text x="705" y="204" text-anchor="middle" class="small">maintains editable buffer</text>
+
+  <rect x="900" y="118" width="250" height="105" class="box" fill="#dcfce7"/>
+  <text x="1025" y="153" text-anchor="middle" class="body">Child ReadConsoleW</text>
+  <text x="1025" y="181" text-anchor="middle" class="small">returns after Enter</text>
+  <text x="1025" y="204" text-anchor="middle" class="small">receives final line only</text>
+
+  <path d="M230 170 L300 170" class="arrow"/>
+  <path d="M510 170 L580 170" class="arrow"/>
+  <path d="M830 170 L900 170" class="arrow"/>
+  <text x="863" y="151" text-anchor="middle" class="small">commit</text>
+
+  <rect x="430" y="275" width="550" height="100" class="box" fill="#fee2e2"/>
+  <text x="705" y="310" text-anchor="middle" class="body">Exact sequential transcript</text>
+  <text x="705" y="338" text-anchor="middle" class="small">retains echoed draft + erase output + final line + child output</text>
+  <text x="705" y="361" text-anchor="middle" class="small">SHA-256: 43e910be…95d70f0</text>
+  <path d="M705 223 L705 275" class="arrow"/>
+  <text x="724" y="255" class="small">output stream</text>
+
+  <line x1="50" y1="418" x2="1150" y2="418" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="50" y="458" class="subtitle">B. Exact native-trial byte layout</text>
+
+  <rect x="50" y="490" width="260" height="112" class="box" fill="#dbeafe"/>
+  <text x="180" y="523" text-anchor="middle" class="small">Offsets 394–412 · 19 bytes</text>
+  <text x="180" y="557" text-anchor="middle" class="mono">i hate architecture</text>
+  <text x="180" y="585" text-anchor="middle" class="small">abandoned draft</text>
+
+  <rect x="335" y="490" width="255" height="112" class="box" fill="#fef3c7"/>
+  <text x="462" y="523" text-anchor="middle" class="small">Offsets 413–469</text>
+  <text x="462" y="552" text-anchor="middle" class="mono">18 × 08 20 08</text>
+  <text x="462" y="579" text-anchor="middle" class="mono">1 × 0D 20 0D</text>
+
+  <rect x="615" y="490" width="245" height="112" class="box" fill="#dcfce7"/>
+  <text x="737" y="523" text-anchor="middle" class="small">Begins at offset 470</text>
+  <text x="737" y="557" text-anchor="middle" class="mono">i like architecture</text>
+  <text x="737" y="585" text-anchor="middle" class="small">committed replacement</text>
+
+  <rect x="885" y="490" width="265" height="112" class="box" fill="#e9d5ff"/>
+  <text x="1017" y="523" text-anchor="middle" class="small">Child output</text>
+  <text x="1017" y="553" text-anchor="middle" class="mono">CHILD_RECEIVED:</text>
+  <text x="1017" y="579" text-anchor="middle" class="mono">i like architecture</text>
+
+  <path d="M310 546 L335 546" class="arrow"/>
+  <path d="M590 546 L615 546" class="arrow"/>
+  <path d="M860 546 L885 546" class="arrow"/>
+
+  <text x="50" y="648" class="small">The transcript is a sequential byte record. Later cursor-control effects change the rendered line but do not retract earlier bytes.</text>
+  <text x="50" y="678" class="small">Primary evidence: evidence/transcripts/conpty-experiment-20261027-223358.typescript</text>
+</svg>
