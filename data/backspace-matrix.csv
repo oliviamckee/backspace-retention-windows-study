@@ -1,0 +1,5 @@
+case_id,start_column,serialized_backspace_byte,key_delay_ms,status,transcript,transcript_bytes,transcript_sha256,erase_triplets_08_20_08,edge_erase_0d_20_0d,edit_region_hex,child_received
+M00-7F,0,0x7f,75,success,evidence/matrix/conpty-matrix-col0-bs7f-20261027-233628.typescript,324,7aff3862a49632970eed346d26205bbe808eeab99146340afcda4f1aa6edcecd,4,1,0820080820080820080820080d200d,omega
+M00-08,0,0x08,75,success,evidence/matrix/conpty-matrix-col0-bs08-20261027-233629.typescript,324,6c5571b6f3fff8d69d48d4719dab8217b477c51d64a159630bd3ec0c3863aabc,4,1,0820080820080820080820080d200d,omega
+M04-7F,4,0x7f,75,success,evidence/matrix/conpty-matrix-col4-bs7f-20261027-233631.typescript,333,f874f2f9784a8a84fb35c8c96284b8b528fddb1181b3e69cf15f079887ec3087,5,0,082008082008082008082008082008,omega
+M04-08,4,0x08,75,success,evidence/matrix/conpty-matrix-col4-bs08-20261027-233632.typescript,333,b2a74eb38d63f068f0cd12014e4056e64a62efeca1cbb12c269ebdc96d10425d,5,0,082008082008082008082008082008,omega

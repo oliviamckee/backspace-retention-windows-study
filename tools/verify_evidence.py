@@ -111,10 +111,66 @@ def verify_structures() -> None:
     require(metadata["child_exit_code"] == 0, "N1 child exit code is not 0")
 
 
+def verify_matrix() -> None:
+    matrix_dir = ROOT / "evidence" / "matrix"
+    specs = [
+        ("conpty-matrix-col0-bs7f-20261027-233628", 0, "0x7f", 4, 1),
+        ("conpty-matrix-col0-bs08-20261027-233629", 0, "0x08", 4, 1),
+        ("conpty-matrix-col4-bs7f-20261027-233631", 4, "0x7f", 5, 0),
+        ("conpty-matrix-col4-bs08-20261027-233632", 4, "0x08", 5, 0),
+    ]
+    streams: dict[tuple[int, str], bytes] = {}
+
+    for stem, start_column, backspace_byte, erase_count, edge_count in specs:
+        data = (matrix_dir / f"{stem}.typescript").read_bytes()
+        draft_end = data.index(b"alpha") + len(b"alpha")
+        final_start = data.index(b"omega", draft_end)
+        edit_region = data[draft_end:final_start]
+        require(
+            edit_region.count(ERASE) == erase_count,
+            f"{stem} 08 20 08 count changed",
+        )
+        require(
+            edit_region.count(EDGE_ERASE) == edge_count,
+            f"{stem} edge erase count changed",
+        )
+        require(
+            len(edit_region) == 15,
+            f"{stem} edit region is not exactly five three-byte erasures",
+        )
+        require(b"CHILD_RECEIVED: omega" in data, f"{stem} child output missing")
+        require(
+            b"CHILD_RECEIVED: alpha" not in data,
+            f"{stem} child received the abandoned string",
+        )
+
+        metadata = json.loads((matrix_dir / f"{stem}.metadata.json").read_text(encoding="utf-8"))
+        require(metadata["status"] == "success", f"{stem} status is not success")
+        require(metadata["matrix_case_passed"] is True, f"{stem} matrix check failed")
+        require(metadata["matrix_start_column"] == start_column, f"{stem} column changed")
+        require(
+            metadata["serialized_backspace_byte"] == backspace_byte,
+            f"{stem} serialized Backspace changed",
+        )
+        require(metadata["scripted_backspace_count"] == 5, f"{stem} erase input count changed")
+        require(metadata["scripted_key_delay_ms"] == 75, f"{stem} key pacing changed")
+        require(metadata["child_exit_code"] == 0, f"{stem} child exit code changed")
+        streams[(start_column, backspace_byte)] = data
+
+    for start_column in (0, 4):
+        delete_stream = streams[(start_column, "0x7f")].replace(b"0x7f", b"0x08")
+        backspace_stream = streams[(start_column, "0x08")]
+        require(
+            delete_stream == backspace_stream,
+            f"column {start_column} output differs beyond the self-label",
+        )
+
+
 def main() -> int:
     try:
         file_count = verify_manifest()
         verify_structures()
+        verify_matrix()
     except (AssertionError, OSError, ValueError, KeyError) as error:
         print(f"VERIFY=FAIL: {error}", file=sys.stderr)
         return 1

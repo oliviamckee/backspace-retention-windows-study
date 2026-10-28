@@ -1,0 +1,21 @@
+{
+  "method": "native-windows-conpty-backspace-matrix-v1",
+  "status": "success",
+  "input_source": "scripted-matrix",
+  "transcript_path": "C:\\Users\\12149\\Documents\\Codex\\2026-10-27\\https-github-com-tmccoy678-backspace-text\\outputs\\backspace-retention-windows-study\\evidence\\matrix\\conpty-matrix-col4-bs7f-20261027-233631.typescript",
+  "transcript_bytes": 333,
+  "transcript_sha256": "f874f2f9784a8a84fb35c8c96284b8b528fddb1181b3e69cf15f079887ec3087",
+  "home_key_count": 0,
+  "delete_key_count": 0,
+  "backspace_key_count": 0,
+  "child_exit_code": 0,
+  "self_test_passed": null,
+  "matrix_start_column": 4,
+  "serialized_backspace_byte": "0x7f",
+  "scripted_backspace_count": 5,
+  "scripted_key_delay_ms": 75,
+  "matrix_case_passed": true,
+  "operating_system": "Microsoft Windows 10.0.19045",
+  "framework": ".NET 9.0.0",
+  "architecture": "X64"
+}

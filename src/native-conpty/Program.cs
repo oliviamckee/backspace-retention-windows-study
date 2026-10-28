@@ -17,16 +17,18 @@ internal static class Program
     private const uint EnableProcessedOutput = 0x0001;
     private const uint EnableVirtualTerminalProcessing = 0x0004;
     private const uint DisableNewlineAutoReturn = 0x0008;
+    private const int MatrixKeyDelayMilliseconds = 75;
 
     private static int Main(string[] args)
     {
         if (args.Contains("--child"))
         {
-            return RunChild();
+            return RunChild(args);
         }
 
         string? outputDirectory = ValueAfter(args, "--output-dir");
         bool selfTest = args.Contains("--self-test");
+        bool matrix = args.Contains("--matrix");
         if (outputDirectory is null)
         {
             Console.Error.WriteLine("--output-dir is required");
@@ -35,7 +37,10 @@ internal static class Program
 
         try
         {
-            return RunHost(Path.GetFullPath(outputDirectory), selfTest).GetAwaiter().GetResult();
+            string fullOutputDirectory = Path.GetFullPath(outputDirectory);
+            return matrix
+                ? RunMatrix(fullOutputDirectory).GetAwaiter().GetResult()
+                : RunHost(fullOutputDirectory, selfTest, matrixCase: null).GetAwaiter().GetResult();
         }
         catch (Exception exception)
         {
@@ -50,7 +55,7 @@ internal static class Program
         return index >= 0 && index + 1 < args.Length ? args[index + 1] : null;
     }
 
-    private static int RunChild()
+    private static int RunChild(string[] args)
     {
         IntPtr input = GetStdHandle(StdInputHandle);
         IntPtr output = GetStdHandle(StdOutputHandle);
@@ -74,11 +79,27 @@ internal static class Program
         }
 
         Console.OutputEncoding = new UTF8Encoding(false);
-        Console.WriteLine("WINDOWS CONPTY NATIVE LINE-EDIT TRIAL");
-        Console.WriteLine("Type a draft without pressing Enter.");
-        Console.WriteLine("For physical Del: press Home, then Del once per character.");
-        Console.WriteLine("Type a different final sentence, then press Enter once.");
-        Console.WriteLine();
+        bool matrixChild = args.Contains("--matrix-child");
+        int matrixStartColumn = int.TryParse(
+            ValueAfter(args, "--matrix-start-column"), out int parsedStartColumn)
+            ? parsedStartColumn
+            : 0;
+        string matrixBackspaceByte = ValueAfter(args, "--matrix-backspace-byte") ?? "n/a";
+
+        if (matrixChild)
+        {
+            Console.WriteLine("WINDOWS CONPTY BACKSPACE MATRIX CASE");
+            Console.WriteLine($"SERIALIZED_BACKSPACE: {matrixBackspaceByte}");
+            Console.Write(new string('>', matrixStartColumn));
+        }
+        else
+        {
+            Console.WriteLine("WINDOWS CONPTY NATIVE LINE-EDIT TRIAL");
+            Console.WriteLine("Type a draft without pressing Enter.");
+            Console.WriteLine("For physical Del: press Home, then Del once per character.");
+            Console.WriteLine("Type a different final sentence, then press Enter once.");
+            Console.WriteLine();
+        }
         Console.Out.Flush();
 
         var buffer = new StringBuilder(4096);
@@ -94,24 +115,63 @@ internal static class Program
         return 0;
     }
 
-    private static async Task<int> RunHost(string outputDirectory, bool selfTest)
+    private static async Task<int> RunMatrix(string outputDirectory)
+    {
+        MatrixCase[] cases =
+        [
+            new(StartColumn: 0, BackspaceByte: 0x7f),
+            new(StartColumn: 0, BackspaceByte: 0x08),
+            new(StartColumn: 4, BackspaceByte: 0x7f),
+            new(StartColumn: 4, BackspaceByte: 0x08),
+        ];
+
+        bool passed = true;
+        foreach (MatrixCase matrixCase in cases)
+        {
+            int result = await RunHost(outputDirectory, selfTest: false, matrixCase);
+            passed &= result == 0;
+        }
+        return passed ? 0 : 6;
+    }
+
+    private static async Task<int> RunHost(
+        string outputDirectory,
+        bool selfTest,
+        MatrixCase? matrixCase)
     {
         Directory.CreateDirectory(outputDirectory);
-        (string transcriptPath, string metadataPath) = ChoosePaths(outputDirectory, selfTest);
+        (string transcriptPath, string metadataPath) = ChoosePaths(outputDirectory, selfTest, matrixCase);
 
         EnableParentVirtualTerminalOutput();
+
+        int consoleWidth = 120;
+        int consoleHeight = 40;
+        try
+        {
+            consoleWidth = Math.Max(80, Console.WindowWidth);
+            consoleHeight = Math.Max(25, Console.WindowHeight);
+        }
+        catch (IOException)
+        {
+            // Automated runs may not have a parent console. Fixed dimensions
+            // keep the ConPTY geometry deterministic in that environment.
+        }
 
         using var inputPipe = new PseudoConsolePipe();
         using var outputPipe = new PseudoConsolePipe();
         using var pseudoConsole = PseudoConsole.Create(
             inputPipe.ReadSide,
             outputPipe.WriteSide,
-            width: Math.Max(80, Console.WindowWidth),
-            height: Math.Max(25, Console.WindowHeight));
+            width: consoleWidth,
+            height: consoleHeight);
 
         string executable = Environment.ProcessPath
             ?? throw new InvalidOperationException("Could not resolve the current executable path.");
-        string commandLine = $"\"{executable}\" --child";
+        string matrixChildArguments = matrixCase is null
+            ? ""
+            : $" --matrix-child --matrix-start-column {matrixCase.StartColumn}" +
+              $" --matrix-backspace-byte 0x{matrixCase.BackspaceByte:x2}";
+        string commandLine = $"\"{executable}\" --child{matrixChildArguments}";
         using var child = ChildProcess.Start(commandLine, pseudoConsole.Handle);
 
         Task outputTask = CopyOutputAsync(outputPipe.ReadSide, transcriptPath);
@@ -122,7 +182,28 @@ internal static class Program
 
         using (var inputStream = new FileStream(inputPipe.WriteSide, FileAccess.Write, 4096, isAsync: false))
         {
-            if (selfTest)
+            if (matrixCase is not null)
+            {
+                await Task.Delay(250);
+                foreach (char character in "alpha")
+                {
+                    WriteUtf8(inputStream, character.ToString());
+                    await Task.Delay(MatrixKeyDelayMilliseconds);
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    inputStream.WriteByte(matrixCase.BackspaceByte);
+                    inputStream.Flush();
+                    await Task.Delay(MatrixKeyDelayMilliseconds);
+                }
+                foreach (char character in "omega")
+                {
+                    WriteUtf8(inputStream, character.ToString());
+                    await Task.Delay(MatrixKeyDelayMilliseconds);
+                }
+                WriteUtf8(inputStream, "\r");
+            }
+            else if (selfTest)
             {
                 await Task.Delay(250);
                 WriteUtf8(inputStream, "alpha");
@@ -170,12 +251,22 @@ internal static class Program
             (transcriptText.Contains("alpha", StringComparison.Ordinal) &&
              transcriptText.Contains("CHILD_RECEIVED: omega", StringComparison.Ordinal) &&
              !transcriptText.Contains("CHILD_RECEIVED: alpha", StringComparison.Ordinal));
+        bool matrixCasePassed = matrixCase is null ||
+            (transcriptText.Contains("alpha", StringComparison.Ordinal) &&
+             transcriptText.Contains("CHILD_RECEIVED: omega", StringComparison.Ordinal) &&
+             !transcriptText.Contains("CHILD_RECEIVED: alpha", StringComparison.Ordinal));
 
         var metadata = new
         {
-            method = "native-windows-conpty-line-edit-v1",
-            status = exited && childExitCode == 0 && selfTestPassed ? "success" : "failure",
-            input_source = selfTest ? "scripted-self-test" : "physical-console-keys",
+            method = matrixCase is null
+                ? "native-windows-conpty-line-edit-v1"
+                : "native-windows-conpty-backspace-matrix-v1",
+            status = exited && childExitCode == 0 && selfTestPassed && matrixCasePassed
+                ? "success"
+                : "failure",
+            input_source = matrixCase is not null
+                ? "scripted-matrix"
+                : selfTest ? "scripted-self-test" : "physical-console-keys",
             transcript_path = Path.GetFullPath(transcriptPath),
             transcript_bytes = transcript.Length,
             transcript_sha256 = Convert.ToHexString(SHA256.HashData(transcript)).ToLowerInvariant(),
@@ -184,6 +275,15 @@ internal static class Program
             backspace_key_count = backspaceKeyCount,
             child_exit_code = childExitCode,
             self_test_passed = selfTest ? selfTestPassed : null as bool?,
+            matrix_start_column = matrixCase?.StartColumn,
+            serialized_backspace_byte = matrixCase is null
+                ? null
+                : $"0x{matrixCase.BackspaceByte:x2}",
+            scripted_backspace_count = matrixCase is null ? null as int? : 5,
+            scripted_key_delay_ms = matrixCase is null
+                ? null as int?
+                : MatrixKeyDelayMilliseconds,
+            matrix_case_passed = matrixCase is null ? null as bool? : matrixCasePassed,
             operating_system = RuntimeInformation.OSDescription,
             framework = RuntimeInformation.FrameworkDescription,
             architecture = RuntimeInformation.ProcessArchitecture.ToString()
@@ -257,9 +357,14 @@ internal static class Program
         }
     }
 
-    private static (string Transcript, string Metadata) ChoosePaths(string directory, bool selfTest)
+    private static (string Transcript, string Metadata) ChoosePaths(
+        string directory,
+        bool selfTest,
+        MatrixCase? matrixCase)
     {
-        string label = selfTest ? "conpty-self-test" : "conpty-experiment";
+        string label = matrixCase is not null
+            ? $"conpty-matrix-col{matrixCase.StartColumn}-bs{matrixCase.BackspaceByte:x2}"
+            : selfTest ? "conpty-self-test" : "conpty-experiment";
         string stamp = DateTime.Now.ToString("yyyyMMdd-HHmmss");
         string stem = Path.Combine(directory, $"{label}-{stamp}");
         int suffix = 2;
@@ -273,6 +378,8 @@ internal static class Program
         }
         return (transcript, metadata);
     }
+
+    private sealed record MatrixCase(int StartColumn, byte BackspaceByte);
 
     private sealed class PseudoConsolePipe : IDisposable
     {

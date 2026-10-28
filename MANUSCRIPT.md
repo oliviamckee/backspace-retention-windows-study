@@ -16,7 +16,12 @@ retained the complete abandoned draft followed by 18 `08 20 08` erasures and
 one left-edge `0D 20 0D` erasure. The child reported only the committed
 replacement. This establishes recovery from the declared Windows ConPTY
 recording path and a separation between recorded terminal output and committed
-application input. It does not establish independent retention by an
+application input. A follow-up four-case native matrix crossed starting column
+0 versus 4 with Backspace serialized as `0x7f` versus `0x08`. Column 0 produced
+four `08 20 08` erasures plus one `0D 20 0D` edge erasure; column 4 produced
+five `08 20 08` erasures. The two input-byte conditions had identical output
+within each column pair after normalizing the printed case label. These
+observations do not establish independent retention by an
 uninstrumented terminal, a message composer, a language model, or a network
 service. Because the operator did not separately confirm the recovered drafts
 after disclosure, exact agreement with an independent ground-truth record was
@@ -62,11 +67,13 @@ rate. It is a transparent engineering record of one sequence of sessions.
 
 ### Design and evidence policy
 
-The work proceeded in two stages. First, a Python harness simulated the
+The initial work proceeded in two stages. First, a Python harness simulated the
 recorder/edit/commit boundary. Second, a native Windows ConPTY host delegated
-line editing to the operating system. Every generated `.typescript` file was
-preserved without conversion. Contemporaneous JSON metadata and recovery notes
-were retained, and SHA-256 digests were calculated over the exact bytes.
+line editing to the operating system. After public review, a scripted native
+follow-up crossed two starting columns with two serialized Backspace bytes.
+Every designated evidence `.typescript` file was preserved without conversion.
+Contemporaneous JSON metadata and recovery notes were retained, and SHA-256
+digests were calculated over the exact bytes.
 
 The operator was instructed to use made-up, nonsensitive English phrases. The
 inspector did not receive a phrase in chat before reading the transcript.
@@ -148,6 +155,24 @@ pressed Backspace once per character, typed a replacement, and pressed Enter.
 The collection program counted physical key categories and recorded the child
 exit code.
 
+### Follow-up Backspace matrix
+
+The follow-up matrix retained the same ConPTY host, output-only recorder,
+processed console modes, and `ReadConsoleW` child. It crossed starting column 0
+versus 4 with Backspace serialized to ConPTY input as `0x7f` versus `0x08`.
+The four-character application-output prefix `>>>>` established column 4. In
+each case the host sent `alpha`, five Backspace bytes, `omega`, and carriage
+return. A 75 ms delay separated each scripted key so the console emitted
+per-key edit output rather than coalescing rapid input into a whole-line redraw.
+
+The matrix was adaptive. An initial noninteractive launch stopped before input
+because the parent lacked a console; a second non-PTY launch reached the child
+but `GetConsoleMode(stdin)` failed before experimental input. A terminal-attached
+pilot without key pacing completed but produced coalesced redraw output. Those
+runs were treated as development observations. The designated four-case matrix
+was collected after terminal attachment and pacing were fixed. Collection
+details are in `provenance/MATRIX_NOTES.md`.
+
 ### Inspection and analysis
 
 Inspection was read-only. SHA-256, byte length, literal printable regions, and
@@ -197,6 +222,25 @@ a byte-level difference from the motivating macOS recording, whose prompt left
 the draft to the right of the screen edge; it does not change the functional
 result.
 
+### Follow-up matrix results
+
+All four matrix cases had status `success`, child exit code 0, and
+`CHILD_RECEIVED: omega`; none contained `CHILD_RECEIVED: alpha`.
+
+| Start column | Serialized Backspace | `08 20 08` | `0D 20 0D` | Child line |
+| ---: | ---: | ---: | ---: | --- |
+| 0 | `0x7f` | 4 | 1 | `omega` |
+| 0 | `0x08` | 4 | 1 | `omega` |
+| 4 | `0x7f` | 5 | 0 | `omega` |
+| 4 | `0x08` | 5 | 0 | `omega` |
+
+Within both starting-column pairs, replacing the ASCII self-label `0x7f` with
+`0x08` made the two transcript byte streams identical. Thus, on this
+configuration, starting column determined whether the fifth erase used the
+left-edge form, while the two tested Backspace input bytes did not change the
+erase output or the line delivered to the child. Exact hashes, byte lengths,
+and edit-region hex are in `data/backspace-matrix.csv`.
+
 ![Figure 1. Method boundary and exact native byte evidence](figures/figure1-method-and-byte-evidence.svg)
 
 **Figure 1.** The host records the ConPTY output stream while Windows processed
@@ -222,6 +266,14 @@ the console subsystem to withhold the editable buffer from the application
 until Enter (Microsoft, 2021, 2023). On macOS, `script(1)` explicitly records
 terminal output, including backspaces (Apple Inc., 2022). On Windows, the custom
 host performed the analogous recording of ConPTY output.
+
+The follow-up narrows the explanation of the nineteenth physical erase in
+`N1`. Moving the draft away from column 0 removed the `0D 20 0D` edge form,
+whereas changing the host's Backspace serialization from `0x7f` to `0x08` did
+not change output in either column condition. The evidence therefore favors a
+cursor-boundary explanation over an input-byte explanation for these runs.
+The four cases are insufficient to define a portable erase grammar across
+other Windows builds, terminal front ends, or operating systems.
 
 ### Simulation versus native evidence
 
@@ -272,24 +324,29 @@ can alter console modes or implement their own editor (Microsoft, 2022b, 2023).
 This was an adaptive engineering session, not a preregistered experiment. The
 same inspector helped design the instrumentation and later read the files.
 There was one machine, one operator, one physical native trial, and no blinded
-independent reviewer. The operator did not independently confirm the recovery
-candidates after disclosure, so exact-match scoring is unavailable. The phrases
-were ASCII; Unicode graphemes, input methods, wrapped lines, cursor movement,
-and multiline editing were not tested. The deterministic receiver established
-a line-delivery boundary but was not a language model. Exact Python v1 and v2
-source snapshots were not preserved. Finally, the private transcripts contain
-local paths and deliberately retained erased text, which limits safe sharing.
+independent reviewer. The follow-up added four scripted cases but no additional
+physical operators or platforms. The operator did not independently confirm
+the recovery candidates after disclosure, so exact-match scoring is
+unavailable. The phrases were ASCII; Unicode graphemes, input methods, wrapped
+lines, cursor movement, and multiline editing were not tested. The
+deterministic receiver established a line-delivery boundary but was not a
+language model. Exact Python v1 and v2 source snapshots were not preserved.
+Finally, the now-public transcripts contain local paths and deliberately
+retained erased text; future additions require disclosure review.
 
 ## Conclusion
 
 An explicitly recorded native Windows ConPTY session preserved a complete draft
 that was visually erased with physical Backspace presses, while a child using
 processed line input and `ReadConsoleW` received only the committed replacement.
+In a scripted follow-up, starting column—but not the choice between `0x7f` and
+`0x08` Backspace input—determined whether the last of five erasures used the
+left-edge `0D 20 0D` representation on this system.
 The result supports a recorder-mediated recovery mechanism analogous to the
 documented macOS `script` case, with platform-specific redraw bytes. It does not
 support broader claims about uninstrumented interfaces, model input, cloud
 telemetry, or hardware architecture. Exact transcripts, hashes, metadata,
-source code, and a verifier are retained in this private repository; independent
+source code, and a verifier are retained in this public repository; independent
 operator confirmation of the recovered strings was not collected.
 
 ## References
