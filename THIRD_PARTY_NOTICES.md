@@ -9,7 +9,20 @@ that repository is redistributed here. The upstream repository declares Apache
 License 2.0 coverage for its original documentation and utilities, with
 separate evidence exceptions.
 
+The October 27 Intel replication is cited at immutable commit
+`eafc3a96f8b21a35acb89dd6619c806935720686`; its transcript, code, and metadata
+remain in the upstream repository and are not copied here.
+
 Source: https://github.com/tmccoy678/Backspace-Text-Retention
+
+## Public GitHub comments
+
+`evidence/public-comments/github-comments-20261028.md` reproduces public GitHub
+comment bodies by Olivia McKee, Taylor McCoy, Blu, and Aster for provenance and
+quotation. Each transcript entry includes the posting account, comment ID, UTC
+timestamp, and public permalink. Third-party wording remains attributable to
+its identified speaker or posting account and is not presented as original
+repository code under the MIT License.
 
 ## Microsoft Windows Terminal MiniTerm
 

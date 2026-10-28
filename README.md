@@ -26,6 +26,15 @@ interpretation.
   Backspace serialized as `0x7f` versus `0x08`. Starting column changed the
   final erase representation; the serialized byte did not change the output
   within either column pair.
+- Public review of the Windows record prompted the matrix and a separate,
+  instrumented replication on 2015 Intel Mac hardware. That later Mac
+  replication used `/usr/bin/script -q` and published its exact artifacts in
+  the source repository. It is not the earlier ordinary-shell attempt.
+- Taylor stated publicly that the earlier Intel attempt occurred in an
+  already-open ordinary Terminal shell and that `/usr/bin/script` was never
+  launched. That statement is retained as retrospective operator testimony;
+  no transcript or metadata from the earlier attempt was present in the public
+  source repository at the October 28, 2026 capture cutoff.
 - The operator did not provide a separate exact-match confirmation after any
   recovered draft was reported. The recovery strings are therefore direct
   byte-level candidates, not independently scored ground truth.
@@ -55,11 +64,33 @@ a universal cross-platform erase grammar. Exact results are in
 [`data/backspace-matrix.csv`](data/backspace-matrix.csv), with collection notes
 in [`provenance/MATRIX_NOTES.md`](provenance/MATRIX_NOTES.md).
 
+## Public review and Intel Mac context
+
+The cross-platform follow-up contains two distinct Intel Mac events and one
+Windows study. They are not interchangeable:
+
+| Event | Recorder evidence | What the public record supports |
+| --- | --- | --- |
+| Earlier ordinary-shell attempt on a 2015 Intel Mac | No public transcript or metadata at the capture cutoff | Taylor later stated that the attempt occurred outside the wrapper and that `script` was never launched. This is operator testimony, not a contemporaneous process record. |
+| Controlled replication on the same 2015 Intel Mac hardware, collected October 27, 2026 | Published `/usr/bin/script -q` transcript, terminal modes, launcher, receiver, hashes, and frozen recovery note | The recorder retained a 17-character candidate followed by 17 `08 20 08` erase triplets; the deterministic child reported only the committed line. Exact-match confirmation remained unscored. |
+| This Windows ConPTY study | Exact local transcripts, metadata, source, hashes, and verifier in this repository | The explicitly enabled ConPTY-output recorder retained the abandoned draft while `ReadConsoleW` returned only the committed replacement. |
+
+The Intel replication remains in its independently authored source repository
+at immutable commit
+[`eafc3a9`](https://github.com/tmccoy678/Backspace-Text-Retention/tree/eafc3a96f8b21a35acb89dd6619c806935720686/replications/intel-mac-2026-10-27).
+The exact public comments that prompted the matrix, clarified the ordinary-shell
+attempt, and defined the remaining evidence boundary are preserved in
+[`evidence/public-comments/github-comments-20261028.md`](evidence/public-comments/github-comments-20261028.md).
+No new figure was added for this update because the table distinguishes the
+three records directly; Figure 1 remains limited to the Windows mechanism and
+byte evidence.
+
 ## Repository layout
 
 ```text
 data/                    Structured trial and follow-up-matrix indices
 evidence/matrix/         Exact follow-up ConPTY transcripts and metadata
+evidence/public-comments/ Verbatim public-review and provenance transcripts
 evidence/transcripts/    Exact byte-preserved operator transcripts
 evidence/metadata/       Exact contemporaneous JSON metadata
 evidence/recovery-notes/ Contemporaneous notes preserved unchanged

@@ -21,11 +21,15 @@ application input. A follow-up four-case native matrix crossed starting column
 four `08 20 08` erasures plus one `0D 20 0D` edge erasure; column 4 produced
 five `08 20 08` erasures. The two input-byte conditions had identical output
 within each column pair after normalizing the printed case label. These
-observations do not establish independent retention by an
-uninstrumented terminal, a message composer, a language model, or a network
-service. Because the operator did not separately confirm the recovered drafts
-after disclosure, exact agreement with an independent ground-truth record was
-not scored.
+observations prompted a public cross-platform exchange and a separately
+instrumented replication on 2015 Intel Mac hardware. The later Intel
+replication published a `/usr/bin/script -q` transcript and terminal-state
+records; it was distinct from an earlier ordinary-shell attempt for which no
+transcript or metadata was present in the inspected public record. These
+observations do not establish independent retention by an uninstrumented
+terminal, a message composer, a language model, or a network service. Because
+the operators did not separately confirm the recovered drafts after disclosure,
+exact agreement with an independent ground-truth record was not scored.
 
 ## Introduction
 
@@ -40,7 +44,7 @@ The motivating macOS record described this boundary using `/usr/bin/script`, a
 pseudo-terminal, and a local command-line model. Its central claim was limited:
 the sequential `.typescript` file retained an abandoned draft and the bytes
 that visually erased it, while the application response was consistent with
-receipt of only the committed line (McCoy & Blu, 2026). Apple's `script(1)`
+receipt of only the committed line (McCoy & Blu, 2026a). Apple's `script(1)`
 manual states that the utility records everything printed on the terminal and
 warns that the log contains linefeeds and backspaces (Apple Inc., 2022).
 
@@ -52,6 +56,15 @@ modes specify that echo input writes characters to the active screen buffer,
 line input withholds the line until carriage return, and processed input handles
 Backspace, carriage return, and line feed when line input is enabled (Microsoft,
 2021, 2023).
+
+After the Windows record became public, Blu reviewed its raw streams, metadata,
+failed controls, native host, and verifier. Blu specifically proposed crossing
+starting column with the host's serialized Backspace byte and separately noted
+that the repository's private-status language had become stale (Blu, 2026a).
+That public review produced the four-case matrix reported here. The later
+comment thread also distinguished an earlier ordinary-shell attempt on 2015
+Intel Mac hardware from a subsequently instrumented replication on the same
+hardware (McCoy, 2026; McCoy & Blu, 2026b).
 
 The present work documents an iterative Windows reproduction. Its primary
 technical question was:
@@ -71,6 +84,9 @@ The initial work proceeded in two stages. First, a Python harness simulated the
 recorder/edit/commit boundary. Second, a native Windows ConPTY host delegated
 line editing to the operating system. After public review, a scripted native
 follow-up crossed two starting columns with two serialized Backspace bytes.
+The public review and the later cross-platform clarification were captured as a
+separate provenance layer; they were not treated as retroactive measurements of
+the Windows trials.
 Every designated evidence `.typescript` file was preserved without conversion.
 Contemporaneous JSON metadata and recovery notes were retained, and SHA-256
 digests were calculated over the exact bytes.
@@ -86,7 +102,9 @@ matches.
 
 The macOS method and claim boundaries were reviewed from
 `tmccoy678/Backspace-Text-Retention` at commit
-`b3ab71be4269db2754476cc2187b80877945b849` (McCoy & Blu, 2026). The native
+`b3ab71be4269db2754476cc2187b80877945b849` (McCoy & Blu, 2026a). The later
+cross-platform update was inspected at immutable commit
+`eafc3a96f8b21a35acb89dd6619c806935720686` (McCoy & Blu, 2026b). The native
 Windows implementation followed Microsoft's documented ConPTY session design
 and the official MiniTerm sample architecture, inspected at Microsoft Terminal
 commit `c91793f7dc022f1a10cacdc7a228ddce63942dc8` (Microsoft, 2025;
@@ -173,6 +191,30 @@ runs were treated as development observations. The designated four-case matrix
 was collected after terminal attachment and pacing were fixed. Collection
 details are in `provenance/MATRIX_NOTES.md`.
 
+### Public correspondence and cross-platform provenance
+
+On October 28, 2026, the public GitHub REST API was used to retrieve the
+comment threads that (a) proposed the Backspace matrix, (b) reported its public
+review, and (c) discussed the earlier and later Intel Mac runs. Each relevant
+comment body was copied without correction into
+`evidence/public-comments/github-comments-20261028.md`, together with its
+account, comment ID, UTC timestamp, and permalink. Line endings were normalized
+as ordinary UTF-8 repository text; the file does not claim to reproduce the
+API's JSON bytes.
+
+The evidence policy distinguished among direct artifacts, public operator
+statements, and absence from the inspected public record. Taylor's statement
+that the earlier Intel attempt occurred in an already-open ordinary Terminal
+and did not launch `/usr/bin/script` was classified as retrospective operator
+testimony (McCoy, 2026). The later Intel replication was classified separately
+because its upstream directory publishes the launcher, receiver, transcript,
+terminal modes, checksums, and frozen recovery note (McCoy & Blu, 2026b). A
+search of the source repository's public `main` branch, public remote branches,
+relevant commit comments, and pull-request 2 comments found no transcript or
+metadata from the earlier ordinary-shell attempt at the capture cutoff. That
+search result was not treated as proof that no private or subsequently
+recovered artifact exists (McKee & Aster, 2026).
+
 ### Inspection and analysis
 
 Inspection was read-only. SHA-256, byte length, literal printable regions, and
@@ -248,6 +290,40 @@ line mode edits the child's input. The lower panel reports the exact `N1` byte
 layout. The diagram is explanatory; the `.typescript` file is the primary
 evidence.
 
+### Public review and Intel Mac record
+
+Blu's public review asked whether starting column and serialized Backspace byte
+could be separated experimentally (Blu, 2026a). The resulting matrix supported
+a cursor-position explanation on the tested Windows configuration. Blu later
+described the matrix as showing that cursor position controlled the left-edge
+erase representation while `0x7f` versus `0x08` did not change output within
+either column pair (Blu, 2026b). These public statements are preserved verbatim
+in the comment transcript; the numerical findings above come from the local
+matrix artifacts, not from the review language.
+
+The source repository's cross-platform update preserved a separate controlled
+replication on a MacBookPro12,1 with an Intel Core i5, macOS 12.7.6, and Apple
+Terminal 2.12.7. Its metadata dates collection from 11:16:37 PM to 11:19:26 PM
+CDT on October 27, 2026. The 353-byte `/usr/bin/script -q` transcript has
+SHA-256 `d416d107b5bc9e19e2819581e7ed5df457088cd3e6d2db6121efd97c4be6bd4f`.
+The upstream recovery record reports a 17-byte candidate at offsets 239–255,
+17 contiguous `08 20 08` triplets at offsets 256–306, a committed sentence
+beginning at offset 307, and a deterministic child report containing only the
+committed sentence. The same record labels operator exact-match confirmation
+“not yet collected” (McCoy & Blu, 2026b).
+
+The earlier and later Intel events therefore have different evidentiary bases:
+
+| Event | Public evidence at the capture cutoff | Supported description |
+| --- | --- | --- |
+| Earlier ordinary-shell attempt | Taylor's later public statement; no transcript or metadata artifact found in the inspected public repository locations | Taylor stated that the attempt occurred outside the wrapper and that `/usr/bin/script` was never launched (McCoy, 2026). |
+| Controlled replication collected October 27, 2026 | Transcript, metadata, child-PTY state, launcher, receiver, hashes, and frozen recovery note | An explicitly enabled recorder retained a 17-character candidate and 17 erase triplets while the deterministic child reported only the committed line; exact-match confirmation remained unscored (McCoy & Blu, 2026b). |
+| Windows ConPTY study | Local transcripts, metadata, source, hashes, verifier, and four-case matrix | The explicitly enabled ConPTY-output recorder retained abandoned drafts while the line-oriented child received only committed replacements. |
+
+No additional figure was added for this comparison. The table makes the
+evidence-type distinction directly, while Figure 1 remains confined to the
+Windows mechanism it depicts.
+
 ## Discussion
 
 ### Principal observation
@@ -257,7 +333,7 @@ that disappeared from the rendered input line remained recoverable from the
 sequential ConPTY output stream, while the child application received the
 committed replacement through `ReadConsoleW`. This is the same functional
 separation described in the motivating macOS case: output recording and
-application input are distinct layers (McCoy & Blu, 2026).
+application input are distinct layers (McCoy & Blu, 2026a).
 
 The result is not paradoxical. Echo makes the draft part of terminal output as
 it is typed. Erasure then appends control effects; it does not retroactively
@@ -289,26 +365,42 @@ output itself contained the OS-generated erase representations. The scripted
 `N0` control further established, before the physical trial, that the child
 received only the post-edit line in this ConPTY configuration.
 
-### Comparison with the reported 2015 Intel Mac attempt
+### Comparison with the 2015 Intel Mac events
 
-The source repository states only that a later 2015 Intel Mac attempt lacked an
-active `script` recorder and produced no recoverable `.typescript` artifact
-(McCoy & Blu, 2026). Its history does not document why the recorder was absent.
-That attempt is not a matched platform comparison: it contrasts an unrecorded
-display with explicitly recorded macOS and Windows paths. No result here
-attributes retention to processor architecture.
+The updated public record distinguishes two events on 2015 Intel Mac hardware.
+For the earlier event, Taylor stated that he typed and deleted a phrase in an
+already-open ordinary Terminal shell, outside the recording wrapper, and that
+`/usr/bin/script` was never launched (McCoy, 2026). This statement answers the
+causal question at the level of retrospective operator testimony. It is not a
+contemporaneous process listing, shell history, transcript, or metadata file.
+The absence of an artifact from the inspected public locations is consistent
+with Taylor's statement but does not independently prove it.
 
-A controlled Intel Mac comparison would need to launch `/usr/bin/script` before
-input, preserve the resulting transcript, record terminal modes and cursor
-position, and inspect raw bytes. Apple documents `script` as an opt-in command,
-not an always-on service (Apple Inc., 2022).
+The subsequent controlled replication did launch `/usr/bin/script -q` before
+input and published the transcript, terminal modes, launcher, receiver,
+checksums, and frozen recovery note. Its recorded separation is functionally
+consistent with the Windows `N1` boundary: the outer recorder retained the
+abandoned draft and erase output, while the deterministic child reported only
+the committed replacement (McCoy & Blu, 2026b). The implementations and output
+bytes remain platform-specific, and the Intel exact-match endpoint remained
+unscored.
+
+These records do not support a processor-architecture explanation. They instead
+show that the earlier ordinary-shell path and the later recorder-wrapped path
+were different experimental conditions. Apple documents `script` as an opt-in
+command, not an always-on service (Apple Inc., 2022). The public exchange asked
+that any surviving artifact from the earlier attempt be published and that, if
+none survives, the repository state that boundary explicitly (McKee & Aster,
+2026).
 
 ### Privacy and claim boundaries
 
 The privacy-relevant finding is narrow: an explicitly enabled exact-stream
 recorder can preserve composition history that the final display and submitted
-line do not reveal. The recorders in this work were launched specifically for
-the experiment. Process inspection after collection found no Python harness or
+line do not reveal. The Windows recorders and the later controlled Intel
+recorder were launched specifically for their experiments. Taylor stated that
+the earlier ordinary-shell Intel attempt did not launch `script` (McCoy, 2026).
+Process inspection after Windows collection found no Python harness or
 `ConPTYBackspace` recorder still running; the remaining PowerShell windows were
 nonrecording shells kept open for visibility.
 
@@ -331,8 +423,13 @@ unavailable. The phrases were ASCII; Unicode graphemes, input methods, wrapped
 lines, cursor movement, and multiline editing were not tested. The
 deterministic receiver established a line-delivery boundary but was not a
 language model. Exact Python v1 and v2 source snapshots were not preserved.
-Finally, the now-public transcripts contain local paths and deliberately
-retained erased text; future additions require disclosure review.
+The later Intel replication had one physical operator and its exact-match
+confirmation remained unscored. The earlier Intel launch state is documented
+by retrospective operator testimony rather than a contemporaneous artifact,
+and no earlier-attempt transcript or metadata was present in the inspected
+public upstream locations at the capture cutoff. Finally, the now-public
+transcripts and comment records contain local paths, deliberately retained
+erased text, and personal wording; future additions require disclosure review.
 
 ## Conclusion
 
@@ -345,9 +442,15 @@ left-edge `0D 20 0D` representation on this system.
 The result supports a recorder-mediated recovery mechanism analogous to the
 documented macOS `script` case, with platform-specific redraw bytes. It does not
 support broader claims about uninstrumented interfaces, model input, cloud
-telemetry, or hardware architecture. Exact transcripts, hashes, metadata,
-source code, and a verifier are retained in this public repository; independent
-operator confirmation of the recovered strings was not collected.
+telemetry, or hardware architecture. A later recorder-wrapped replication on
+2015 Intel Mac hardware published a functionally similar separation, while an
+earlier ordinary-shell attempt remains supported only by Taylor's later account
+that `script` was not launched and by the absence of an artifact in the
+inspected public record. Exact Windows transcripts, hashes, metadata, source
+code, a verifier, and verbatim public-comment transcripts are retained in this
+repository. The independently authored Intel artifacts remain at their
+immutable upstream commit; independent operator confirmation of the recovered
+strings was not collected.
 
 ## References
 
@@ -355,9 +458,34 @@ Apple Inc. (2022). *script(1): Make typescript of terminal session* [Manual
 page]. Apple Open Source.
 https://github.com/apple-oss-distributions/shell_cmds/blob/e256b9a97f9bbd751305b7af36cf751668fbb849/script/script.1
 
-McCoy, T., & Blu. (2026). *Backspace Gate: A preregistered blinded test of exact
+Blu. (2026a, October 28). *Blu here—I read this line by line, including the raw
+streams, metadata, failed controls, native host, and verifier* [Comment on the
+GitHub commit “Document Windows backspace-retention experiments”]. GitHub.
+https://github.com/oliviamckee/backspace-retention-windows-study/commit/1c2df2adc0e32b60260032fd6dcfa258aa24d1de#commitcomment-206991204
+
+Blu. (2026b, October 28). *@oliviamckee Blu here—this is exactly the matrix I
+hoped to see* [Comment on the GitHub commit “Add cursor and Backspace byte
+matrix”]. GitHub.
+https://github.com/oliviamckee/backspace-retention-windows-study/commit/5815c0136ff88b03c7d6c455962aacb7e2a8bd60#commitcomment-206993692
+
+McCoy, T. (2026, October 28). *@oliviamckee Hi Olivia, thank you for asking this
+so carefully* [Comment on the GitHub commit “Reframe repository around
+prospective card study”]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/commit/24beb09843d46f9d1a67a8564e95ce4b33567244#commitcomment-206991669
+
+McCoy, T., & Blu. (2026a). *Backspace Gate: A preregistered blinded test of exact
 recovery from a deleted terminal draft* [Source code and research repository].
 GitHub. https://github.com/tmccoy678/Backspace-Text-Retention
+
+McCoy, T., & Blu. (2026b). *Recorded-PTY replication on a 2015 Intel Mac* [Data,
+source code, and research record]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/tree/eafc3a96f8b21a35acb89dd6619c806935720686/replications/intel-mac-2026-10-27
+
+McKee, O., & Aster. (2026, October 28). *Thank you, Taylor and Blu. Taylor’s
+explanation answers my original question at the level the evidence permits*
+[Comment on the GitHub commit “Reframe repository around prospective card
+study”]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/commit/24beb09843d46f9d1a67a8564e95ce4b33567244#commitcomment-206997050
 
 Microsoft. (n.d.). *Windows Terminal* [Computer software]. GitHub. Retrieved
 October 27, 2026, from https://github.com/microsoft/terminal
