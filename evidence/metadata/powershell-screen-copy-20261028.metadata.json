@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "artifact": "evidence/screen-copies/backspacetextretention2.txt",
+  "provided_filename": "backspacetextretention2.txt",
+  "observation_type": "operator-provided post-session plain-text screen copy",
+  "reported_filesystem_times": {
+    "creation_time_local": "2026-10-28T01:14:49.6573517-05:00",
+    "last_write_time_local": "2026-10-28T01:14:49.8039144-05:00"
+  },
+  "byte_length": 1579,
+  "sha256": "7a47bfcf496e6639cfc55f2ccfc365fb0d211dedc739ebc141dfbb4a848eae2e",
+  "encoding_observation": "UTF-8 without a byte-order mark",
+  "line_endings": {
+    "crlf_pairs": 27,
+    "lone_lf": 0,
+    "lone_cr": 0
+  },
+  "byte_counts": {
+    "backspace_0x08": 0,
+    "tab_0x09": 0,
+    "escape_0x1b": 0,
+    "delete_0x7f": 0,
+    "utf8_em_dash_sequences": 1
+  }
+}

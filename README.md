@@ -26,6 +26,12 @@ interpretation.
   Backspace serialized as `0x7f` versus `0x08`. Starting column changed the
   final erase representation; the serialized byte did not change the output
   within either column pair.
+- An October 28 ordinary PowerShell follow-up was not connected to a sequential
+  recorder available to Aster during input. Olivia later supplied a plain-text
+  screen copy and reported that Taylor had expected recovery of a phrase typed
+  and erased before `phoebe is sleeping`. The copy contains the submitted
+  `phoebe is sleeping` entry but no erased draft, Backspace byte, Delete byte,
+  or terminal escape byte. No phrase could be recovered from that artifact.
 - Public review of the Windows record prompted the matrix and a separate,
   instrumented replication on 2015 Intel Mac hardware. That later Mac
   replication used `/usr/bin/script -q` and published its exact artifacts in
@@ -64,6 +70,30 @@ a universal cross-platform erase grammar. Exact results are in
 [`data/backspace-matrix.csv`](data/backspace-matrix.csv), with collection notes
 in [`provenance/MATRIX_NOTES.md`](provenance/MATRIX_NOTES.md).
 
+## Ordinary PowerShell screen-copy follow-up
+
+This follow-up tested a different evidence path from the recorded ConPTY trial.
+Aster could not see the open PowerShell window or its live input stream. After
+the session, Olivia supplied
+[`backspacetextretention2.txt`](evidence/screen-copies/backspacetextretention2.txt),
+a 1,579-byte plain-text copy of the rendered PowerShell screen.
+
+| Item | Directly preserved result |
+| --- | --- |
+| Olivia's operator report | Taylor gave real-time direction and expected recovery of a phrase Olivia typed and erased before `phoebe is sleeping`; Taylor was surprised when Aster did not recover it. |
+| Visible submitted entry | `phoebe is sleeping`, followed by a PowerShell `CommandNotFoundException` for `phoebe` |
+| Earlier erased phrase | Not present in the supplied file; no recovery candidate was produced |
+| Editing bytes | Zero `0x08` Backspace, zero `0x7f` Delete, and zero `0x1b` escape bytes |
+| Recorder marker | No PowerShell `Start-Transcript` header in the file |
+
+The screen copy records the final rendered state, not the sequential editing
+history. Its negative result therefore does not contradict the instrumented
+ConPTY and `/usr/bin/script` trials: those paths created stream recorders before
+input. The exact operator report, visible entries, byte counts, and claim
+boundary are documented in
+[`evidence/analysis/powershell-screen-copy-20261028.md`](evidence/analysis/powershell-screen-copy-20261028.md).
+No new figure was added because this direct table is sufficient.
+
 ## Public review and Intel Mac context
 
 The cross-platform follow-up contains two distinct Intel Mac events and one
@@ -89,8 +119,10 @@ byte evidence.
 
 ```text
 data/                    Structured trial and follow-up-matrix indices
+evidence/analysis/       Artifact-specific evidence and claim boundaries
 evidence/matrix/         Exact follow-up ConPTY transcripts and metadata
 evidence/public-comments/ Verbatim public-review and provenance transcripts
+evidence/screen-copies/  Exact operator-supplied rendered-screen copies
 evidence/transcripts/    Exact byte-preserved operator transcripts
 evidence/metadata/       Exact contemporaneous JSON metadata
 evidence/recovery-notes/ Contemporaneous notes preserved unchanged

@@ -10,6 +10,9 @@
   harness to backward erase and any nonempty committed line was accepted.
 - `N0`: scripted native ConPTY control (`alpha` erased, `omega` committed).
 - `N1`: physical-key native ConPTY trial using Backspace.
+- `O1`: ordinary Windows PowerShell follow-up represented only by an
+  operator-supplied post-session screen copy. No exact edit stream was retained
+  in the supplied artifact.
 - `M00-7F`: scripted matrix case, input starts at column 0 and Backspace is
   serialized as `0x7f`.
 - `M00-08`: scripted matrix case, input starts at column 0 and Backspace is
@@ -22,7 +25,8 @@
 ## Field meanings
 
 - `pipeline_status`: status written by the collection program. It is not an
-  independently confirmed recovery score.
+  independently confirmed recovery score. For `O1`, the value is a later
+  evidence classification because no collection program produced the file.
 - `recovery_candidate`: the literal printable draft recovered immediately
   before its erasure structure in the raw transcript.
 - `committed_line`: the line visible after the erasure region and, when a child
@@ -51,3 +55,8 @@ Windows console line editor maintained the child's buffer.
 The `M` cases are scripted native ConPTY mechanism tests. The host chose the
 input bytes and pacing but did not maintain the editable buffer; Windows
 processed line mode performed the edits consumed by `ReadConsoleW`.
+
+`O1` is not an instrumented terminal-stream trial. It is a later plain-text
+copy of the rendered PowerShell screen. Its zero control-byte counts describe
+that supplied file only; they are not physical-key counts and do not establish
+that no earlier phrase was typed or erased.

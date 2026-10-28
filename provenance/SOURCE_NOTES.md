@@ -2,8 +2,11 @@
 
 ## Collection date and timezone
 
-All operator trials were collected on October 27, 2026, in America/Chicago
-(`UTC-05:00` on that date). Exact timestamps are preserved in the JSON metadata.
+The instrumented operator trials were collected on October 27, 2026, in
+America/Chicago (`UTC-05:00` on that date). The later ordinary PowerShell
+screen-copy artifact has reported creation and last-write timestamps on October
+28, 2026, in the same offset. Exact available timestamps are preserved in JSON
+metadata.
 
 ## Upstream revisions
 
@@ -41,6 +44,21 @@ public remote branches, the relevant commit-comment endpoint, or pull-request
 2's issue-comment endpoint. This is a statement about the inspected public
 record, not proof that no private or subsequently recovered artifact exists.
 
+## Ordinary PowerShell screen-copy follow-up
+
+The operator supplied `backspacetextretention2.txt` after an ordinary Windows
+PowerShell session. Before it was supplied, Aster had stated that the open
+PowerShell window was not exposed through the available app interface. The
+file is therefore classified as a post-session rendered-screen copy, not as a
+keystroke log, a ConPTY stream, or PowerShell `Start-Transcript` output.
+
+Olivia's exact operator report about Taylor's directions and expectation is
+preserved separately in
+`evidence/analysis/powershell-screen-copy-20261028.md`. The report is not
+treated as a substitute for the missing edit stream. Direct file measurements
+are preserved in
+`evidence/metadata/powershell-screen-copy-20261028.metadata.json`.
+
 ## Environment established by generated metadata
 
 - Python simulation: Python 3.12.10 on `win32`.
@@ -49,10 +67,11 @@ record, not proof that no private or subsequently recovered artifact exists.
 
 ## Source preservation
 
-The `.typescript` files, JSON metadata, and contemporaneous recovery notes under
-`evidence/` were copied without conversion. `SHA256SUMS` identifies those exact
-copies. The recovery notes are preserved even where their wording predates the
-later audit; the manuscript supersedes them for interpretation.
+The `.typescript` files, operator-supplied PowerShell screen copy, JSON
+metadata, and contemporaneous recovery notes under `evidence/` were copied
+without conversion. `SHA256SUMS` identifies those exact copies. The recovery
+notes are preserved even where their wording predates the later audit; the
+manuscript supersedes them for interpretation.
 
 The current Python source is the final v3 harness. Exact v1 and v2 source
 snapshots were not frozen during the session and are therefore not reconstructed
@@ -69,3 +88,7 @@ source used for `N0` and `N1`.
 - No contemporaneous process record or `.typescript` file for the earlier
   ordinary-shell Intel attempt was present in the inspected public upstream
   record at the October 28 capture cutoff.
+- For the October 28 ordinary PowerShell follow-up, no live keystroke capture,
+  exact output-stream recorder, contemporaneous process listing, or independent
+  record of the reported erased phrase was supplied. The later screen copy
+  contains no recoverable candidate for that phrase.

@@ -166,11 +166,47 @@ def verify_matrix() -> None:
         )
 
 
+def verify_powershell_screen_copy() -> None:
+    path = ROOT / "evidence" / "screen-copies" / "backspacetextretention2.txt"
+    data = path.read_bytes()
+    require(len(data) == 1579, "O1 screen-copy byte length changed")
+    require(data.startswith(b"Windows PowerShell\r\n"), "O1 PowerShell banner missing")
+    require(
+        b"PS C:\\Users\\12149> phoebe is sleeping\r\n" in data,
+        "O1 visible phoebe entry missing",
+    )
+    require(
+        b"CommandNotFoundException" in data,
+        "O1 PowerShell error record missing",
+    )
+    require(data.endswith(b"fwd-i-search: _\r\n"), "O1 exact ending changed")
+    require(data.count(b"\r\n") == 27, "O1 CRLF count is not 27")
+    require(b"\x08" not in data, "O1 unexpectedly contains Backspace bytes")
+    require(b"\x7f" not in data, "O1 unexpectedly contains Delete bytes")
+    require(b"\x1b" not in data, "O1 unexpectedly contains escape bytes")
+    require(
+        b"**********************\r\nWindows PowerShell transcript start" not in data,
+        "O1 unexpectedly contains a PowerShell transcript header",
+    )
+
+    metadata_path = ROOT / "evidence" / "metadata" / "powershell-screen-copy-20261028.metadata.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    require(metadata["byte_length"] == len(data), "O1 metadata byte length changed")
+    require(
+        metadata["sha256"] == hashlib.sha256(data).hexdigest(),
+        "O1 metadata hash changed",
+    )
+    require(metadata["byte_counts"]["backspace_0x08"] == 0, "O1 metadata Backspace count changed")
+    require(metadata["byte_counts"]["delete_0x7f"] == 0, "O1 metadata Delete count changed")
+    require(metadata["byte_counts"]["escape_0x1b"] == 0, "O1 metadata escape count changed")
+
+
 def main() -> int:
     try:
         file_count = verify_manifest()
         verify_structures()
         verify_matrix()
+        verify_powershell_screen_copy()
     except (AssertionError, OSError, ValueError, KeyError) as error:
         print(f"VERIFY=FAIL: {error}", file=sys.stderr)
         return 1

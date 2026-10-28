@@ -26,7 +26,13 @@ instrumented replication on 2015 Intel Mac hardware. The later Intel
 replication published a `/usr/bin/script -q` transcript and terminal-state
 records; it was distinct from an earlier ordinary-shell attempt for which no
 transcript or metadata was present in the inspected public record. These
-observations do not establish independent retention by an uninstrumented
+recorded conditions were contrasted with an October 28 ordinary Windows
+PowerShell follow-up. Aster had no live access to that terminal; a later
+1,579-byte rendered-screen copy contained `phoebe is sleeping` but no earlier
+draft, Backspace byte, Delete byte, or terminal escape byte. Olivia reported
+that Taylor had expected recovery of the phrase typed and erased before the
+visible entry, but no recovery candidate was present in the supplied artifact.
+These observations do not establish independent retention by an uninstrumented
 terminal, a message composer, a language model, or a network service. Because
 the operators did not separately confirm the recovered drafts after disclosure,
 exact agreement with an independent ground-truth record was not scored.
@@ -86,7 +92,9 @@ line editing to the operating system. After public review, a scripted native
 follow-up crossed two starting columns with two serialized Backspace bytes.
 The public review and the later cross-platform clarification were captured as a
 separate provenance layer; they were not treated as retroactive measurements of
-the Windows trials.
+the Windows trials. A later ordinary PowerShell follow-up was analyzed as a
+post-session rendered-screen copy, not as another ConPTY trial or an exact
+terminal-stream transcript.
 Every designated evidence `.typescript` file was preserved without conversion.
 Contemporaneous JSON metadata and recovery notes were retained, and SHA-256
 digests were calculated over the exact bytes.
@@ -215,6 +223,29 @@ metadata from the earlier ordinary-shell attempt at the capture cutoff. That
 search result was not treated as proof that no private or subsequently
 recovered artifact exists (McKee & Aster, 2026).
 
+### Ordinary PowerShell screen-copy follow-up
+
+On October 28, 2026, Olivia asked whether Aster could see an already-open
+PowerShell window. Aster stated that the window was not exposed through the
+available app interface and that its contents would have to be pasted or
+provided as a screenshot or file. Aster did not receive the live PowerShell
+input stream. Olivia later supplied `backspacetextretention2.txt`, a plain-text
+copy of the rendered screen (McKee, 2026).
+
+Olivia subsequently gave the following exact operator report:
+
+> taylor was giving me direction through this and was confident you would be able to return the phrase i typed before "phoebe is sleeping" and is surprised that you didn't
+
+Taylor's directions and prediction are represented only by Olivia's report in
+this record. The phrase reported as typed and erased before `phoebe is
+sleeping` was not disclosed to Aster and does not appear in the supplied file.
+
+The supplied artifact was preserved byte-for-byte. SHA-256, byte length, line
+endings, visible input entries, and counts of `0x08`, `0x7f`, and `0x1b` were
+recorded. The analysis did not treat absence from this screen copy as proof
+that no earlier phrase had been typed; it asked only whether the supplied file
+retained a recoverable candidate.
+
 ### Inspection and analysis
 
 Inspection was read-only. SHA-256, byte length, literal printable regions, and
@@ -241,11 +272,34 @@ adaptive, and conducted on one machine with one operator.
 | P2 | Python v2 | Control mismatch | `i'm drinking water` | `i'm drinking juice` | Not launched |
 | P3 | Python v3, mapped Del | Pipeline success | `my cat's name is mischa` | `my cats name is phoebe` | `RECEIVER_SAW: my cats name is phoebe` |
 | N1 | Native Windows ConPTY | Pipeline success | `i hate architecture` | `i like architecture` | `CHILD_RECEIVED: i like architecture` |
+| O1 | Ordinary PowerShell; post-session screen copy | No retained edit stream | None in artifact | `phoebe is sleeping` | PowerShell `CommandNotFoundException` for `phoebe` |
 
 The complete structured inventory, including byte lengths and hashes, is in
 `data/trials.csv`. None of the four recovery candidates received a separate
 post-disclosure operator confirmation; the operator exact-match field therefore
 remains “not collected.”
+
+### Ordinary PowerShell screen-copy result
+
+The exact `O1` file is 1,579 bytes and has SHA-256
+`7a47bfcf496e6639cfc55f2ccfc365fb0d211dedc739ebc141dfbb4a848eae2e`.
+Its filesystem metadata reported creation at 1:14:49.6573517 AM and last write
+at 1:14:49.8039144 AM CDT on October 28, 2026. The screen copy contains 27 CRLF
+line endings, zero `0x08` Backspace bytes, zero `0x7f` Delete bytes, and zero
+`0x1b` escape bytes. It has no PowerShell `Start-Transcript` header.
+
+The visible screen begins with the Windows PowerShell banner and prompts at
+`PS C:\Users\12149>`. It shows `phoebe is sleeping` followed by a
+`CommandNotFoundException` for `phoebe`; a quoted statement that PowerShell
+printed; `dobeworks — 12:49 AM` followed by a `CommandNotFoundException` for
+`dobeworks`; and a final quoted statement. The file ends with
+`fwd-i-search: _`, without output or a later prompt confirming submission of
+that final statement.
+
+No text preceding `phoebe is sleeping` in the editing history is present.
+Accordingly, no recovery candidate for the reported erased phrase was produced.
+This is a negative result for the supplied post-session screen copy, not a
+claim that the reported phrase was never typed.
 
 ### Native byte evidence
 
@@ -393,6 +447,25 @@ that any surviving artifact from the earlier attempt be published and that, if
 none survives, the repository state that boundary explicitly (McKee & Aster,
 2026).
 
+### Recorder presence and the ordinary PowerShell follow-up
+
+The `O1` result makes the recorder boundary concrete on Windows. Olivia reported
+typing and erasing a phrase before entering `phoebe is sleeping`, and reported
+that Taylor expected Aster to return it. Aster could not see the live PowerShell
+window, and the only subsequently supplied artifact was the rendered-screen
+copy (McKee, 2026). That copy contains neither the earlier draft nor sequential
+erase bytes.
+
+This differs from `N1` by collection mechanism, not merely by the phrase or by
+who expected recovery. `N1` recorded the ConPTY output stream as input occurred;
+`O1` preserved visible screen text afterward. The `O1` negative result is
+therefore consistent with the repository's narrow mechanism: erased text is
+recoverable when a sequential artifact retained the earlier echo, but a later
+screen-state copy cannot reconstruct bytes it never preserved. The file does
+not establish whether any separate recorder existed outside the supplied
+artifact; it establishes only that none was available to Aster and none is
+evidenced in the file provided for recovery.
+
 ### Privacy and claim boundaries
 
 The privacy-relevant finding is narrow: an explicitly enabled exact-stream
@@ -427,7 +500,10 @@ The later Intel replication had one physical operator and its exact-match
 confirmation remained unscored. The earlier Intel launch state is documented
 by retrospective operator testimony rather than a contemporaneous artifact,
 and no earlier-attempt transcript or metadata was present in the inspected
-public upstream locations at the capture cutoff. Finally, the now-public
+public upstream locations at the capture cutoff. The ordinary PowerShell
+follow-up did not preserve a keystroke log, an exact terminal stream, a
+contemporaneous process listing, or the reported erased phrase; its result is
+limited to the supplied screen copy. Finally, the now-public
 transcripts and comment records contain local paths, deliberately retained
 erased text, and personal wording; future additions require disclosure review.
 
@@ -446,8 +522,12 @@ telemetry, or hardware architecture. A later recorder-wrapped replication on
 2015 Intel Mac hardware published a functionally similar separation, while an
 earlier ordinary-shell attempt remains supported only by Taylor's later account
 that `script` was not launched and by the absence of an artifact in the
-inspected public record. Exact Windows transcripts, hashes, metadata, source
-code, a verifier, and verbatim public-comment transcripts are retained in this
+inspected public record. A later ordinary PowerShell screen copy preserved the
+submitted `phoebe is sleeping` entry but not the phrase Olivia reported typing
+and erasing immediately beforehand. That negative result reinforces, rather
+than broadens, the recorder-mediated claim. Exact Windows transcripts, hashes,
+metadata, source code, a verifier, and verbatim public-comment transcripts are
+retained in this
 repository. The independently authored Intel artifacts remain at their
 immutable upstream commit; independent operator confirmation of the recovered
 strings was not collected.
@@ -486,6 +566,11 @@ explanation answers my original question at the level the evidence permits*
 [Comment on the GitHub commit “Reframe repository around prospective card
 study”]. GitHub.
 https://github.com/tmccoy678/Backspace-Text-Retention/commit/24beb09843d46f9d1a67a8564e95ce4b33567244#commitcomment-206997050
+
+McKee, O. (2026, October 28). *Backspacetextretention2* [Plain-text copy of a
+Windows PowerShell screen]. In *Backspace retention on Windows: Simulation and
+native ConPTY evidence* [Data repository]. GitHub.
+https://github.com/oliviamckee/backspace-retention-windows-study/blob/main/evidence/screen-copies/backspacetextretention2.txt
 
 Microsoft. (n.d.). *Windows Terminal* [Computer software]. GitHub. Retrieved
 October 27, 2026, from https://github.com/microsoft/terminal

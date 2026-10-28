@@ -1,0 +1,27 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\12149> phoebe is sleeping
+phoebe : The term 'phoebe' is not recognized as the name of a cmdlet, function, script file, or operable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ phoebe is sleeping
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (phoebe:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\12149> "it is not the launcher it is the transcript. something is not keeping the backspace data on the '15 intel mac but it is on the new computers, windows and mac."
+it is not the launcher it is the transcript. something is not keeping the backspace data on the '15 intel mac but it is on the new computers, windows and mac.
+PS C:\Users\12149> dobeworks - 12:49 AM
+dobeworks : The term 'dobeworks' is not recognized as the name of a cmdlet, function, script file, or operable
+program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ dobeworks — 12:49 AM
++ ~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (dobeworks:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\12149> "the first intel test was the ordinary shell attempt. the controlled usr/bin/script experiment was the later rerun"
+fwd-i-search: _
