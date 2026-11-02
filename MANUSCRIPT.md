@@ -6,8 +6,9 @@ Terminal interfaces distinguish the text visible during editing from the line
 eventually returned to an application. This technical record examined whether
 text typed and visually erased on Windows remained recoverable from an
 explicitly enabled sequential recorder. Three purpose-built Python-harness
-trials and one native Windows Pseudoconsole (ConPTY) trial were completed after
-an aborted setup attempt. The native host forwarded physical keyboard input to
+trials and two physical native Windows Pseudoconsole (ConPTY) trials were
+completed after separately documented setup and restart attempts. The native
+host forwarded physical keyboard input to
 ConPTY and recorded only the ConPTY output pipe; a child process enabled
 processed, line, and echo input modes and called `ReadConsoleW`. In the native
 trial, the operator typed a 19-character draft, erased it with 19 physical
@@ -32,10 +33,17 @@ PowerShell follow-up. Aster had no live access to that terminal; a later
 draft, Backspace byte, Delete byte, or terminal escape byte. Olivia reported
 that Taylor had expected recovery of the phrase typed and erased before the
 visible entry, but no recovery candidate was present in the supplied artifact.
+In a November 2 matched physical-key follow-up, the operator navigated to a
+nine-character draft with Left Arrow and removed it with nine physical Windows
+Delete presses using native forward-delete semantics. The recorder retained
+`bubblegum` and repeated shrinking-line redraws, while `ReadConsoleW` returned
+only `cherries`. The recovery was frozen before the operator confirmed an exact
+match. The forward-Delete output contained no `08 20 08` Backspace triplet.
 These observations do not establish independent retention by an uninstrumented
 terminal, a message composer, a language model, or a network service. Because
-the operators did not separately confirm the recovered drafts after disclosure,
-exact agreement with an independent ground-truth record was not scored.
+the original trial operators did not separately confirm their recovered drafts,
+exact agreement remained unscored for those records; the later forward-Delete
+trial obtained confirmation only after its recovery was frozen and disclosed.
 A November 2 review of a shared extended abstract and the updated public source
 repository did not change that boundary. The public retrospective answer states
 that the known complete positive used an external recorder and that no new
@@ -204,6 +212,28 @@ runs were treated as development observations. The designated four-case matrix
 was collected after terminal attachment and pacing were fixed. Collection
 details are in `provenance/MATRIX_NOTES.md`.
 
+### Physical forward-Delete follow-up
+
+On November 2, the native host was reused for a physical Windows Delete trial
+(`N2`). Unlike `P3`, the host did not convert Delete to backward erase. Its
+existing key mapping forwarded a physical Delete event as the forward-delete
+sequence `ESC [ 3 ~`. The ConPTY output pipe remained the only recorded stream;
+the input sequence itself was not written to the transcript.
+
+An initial launch was abandoned after the operator had difficulty using Home
+and explicitly requested a restart with Left Arrow. It produced an incomplete
+530-byte transcript and no completed metadata file. That artifact was not
+inspected before the successful run's recovery was frozen and remains local.
+
+For the designated run, Olivia typed a harmless draft without Enter, navigated
+to its beginning with physical Left Arrow, pressed physical Delete until the
+draft disappeared, typed a replacement, and pressed Enter once. She withheld
+the draft during inspection. Aster froze one recovery candidate, the committed
+line, and the child observation before requesting confirmation. Olivia then
+confirmed or rejected the frozen candidate in chat. Exact source, executable,
+and artifact hashes are in
+`evidence/analysis/physical-forward-delete-20261102.md`.
+
 ### Public correspondence and cross-platform provenance
 
 On October 28, 2026, the public GitHub REST API was used to retrieve the
@@ -303,11 +333,13 @@ adaptive, and conducted on one machine with one operator.
 | P3 | Python v3, mapped Del | Pipeline success | `my cat's name is mischa` | `my cats name is phoebe` | `RECEIVER_SAW: my cats name is phoebe` |
 | N1 | Native Windows ConPTY | Pipeline success | `i hate architecture` | `i like architecture` | `CHILD_RECEIVED: i like architecture` |
 | O1 | Ordinary PowerShell; post-session screen copy | No retained edit stream | None in artifact | `phoebe is sleeping` | PowerShell `CommandNotFoundException` for `phoebe` |
+| N2 | Native Windows ConPTY; physical forward Delete | Pipeline success; exact match confirmed | `bubblegum` | `cherries` | `CHILD_RECEIVED: cherries` |
 
 The complete structured inventory, including byte lengths and hashes, is in
-`data/trials.csv`. None of the four recovery candidates received a separate
-post-disclosure operator confirmation; the operator exact-match field therefore
-remains “not collected.”
+`data/trials.csv`. The four original recovery candidates did not receive a
+separate post-disclosure operator confirmation. `N2` was different: its
+candidate was frozen before disclosure, and the operator then confirmed it as
+an exact match.
 
 ### Ordinary PowerShell screen-copy result
 
@@ -374,6 +406,34 @@ line mode edits the child's input. The lower panel reports the exact `N1` byte
 layout. The diagram is explanatory; the `.typescript` file is the primary
 evidence.
 
+### Physical forward-Delete result
+
+The completed `N2` transcript is 542 bytes and has SHA-256
+`1004cc735641a9c1321194d1b573a3ead55701b8ebfed44d96ece7c412f93523`.
+Generated metadata records nine physical Delete presses, zero physical
+Backspace presses, zero Home presses, child exit code 0, and collection from
+physical console keys. The operator used Left Arrow rather than Home; the host
+did not count Left Arrow events separately.
+
+The printable draft `bubblegum` begins at byte offset 425. Eight `0x08` bytes
+and one carriage return precede nine forward-Delete redraws. Those redraws
+print the shortening forms `ubblegum`, `bblegum`, `blegum`, `legum`, `egum`,
+`gum`, `um`, `m`, and a blank field, each followed by two spaces and carriage
+return. The committed line `cherries` begins at offset 506, and
+`CHILD_RECEIVED: cherries` begins at offset 516. The 89-byte edit segment
+contains no `0x1b` byte and no exact `08 20 08` triplet. The physical input
+sequence is evidenced by the host mapping and key-count metadata rather than
+the output-only transcript.
+
+At 12:31:41 PM CST, Aster froze `bubblegum` as the recovery candidate before
+operator disclosure. At 12:32:21 PM, Olivia replied `yes exactly`. The exact-
+match outcome is therefore 1. The output recorder retained the full abandoned
+draft, while `ReadConsoleW` returned only the submitted replacement.
+
+No additional figure was added. The byte rendering and direct comparison with
+`N1` communicate the key difference without introducing a second mechanism
+diagram.
+
 ### Public review and Intel Mac record
 
 Blu's public review asked whether starting column and serialized Backspace byte
@@ -428,7 +488,7 @@ Codex recorder-off condition.
 
 ### Principal observation
 
-The native trial answered the technical question for the declared path. A draft
+The native trials answered the technical question for the declared path. A draft
 that disappeared from the rendered input line remained recoverable from the
 sequential ConPTY output stream, while the child application received the
 committed replacement through `ReadConsoleW`. This is the same functional
@@ -464,6 +524,34 @@ processed mode maintained the line consumed by `ReadConsoleW`. The native
 output itself contained the OS-generated erase representations. The scripted
 `N0` control further established, before the physical trial, that the child
 received only the post-edit line in this ConPTY configuration.
+
+`N2` used the same native boundary with physical Windows Delete. The host
+forwarded the physical key as its normal forward-delete sequence; it did not
+maintain the editable buffer or convert the action to Backspace. `N2` therefore
+extends the native evidence to the Windows key behavior that `P3` expressly did
+not measure.
+
+### Physical Backspace versus physical forward Delete
+
+The two physical native trials produced different output grammars. `N1`
+backward editing emitted compact erase triplets for 18 characters and a
+carriage-return edge form for the nineteenth. `N2` first emitted cursor-left
+effects and then, for each forward deletion, returned to the left edge and
+redrew the complete remaining suffix with clearing spaces.
+
+The distinction is observable in the recorder, but it does not change the
+application-input boundary: both full drafts remained in earlier output bytes,
+and each child reported only its replacement. Nor does the difference imply
+that one key is more private than the other when a sequential output recorder
+is active. The tested phrases, lengths, navigation, and collection dates differ,
+so the comparison is mechanistic rather than an estimate of relative recovery
+probability.
+
+The built-in Mac key labeled Delete performs backward editing analogous to
+Windows Backspace; Apple documents `Fn-Delete` as forward delete on keyboards
+without a dedicated Forward Delete key (Apple Inc., 2026). The present Windows
+forward-Delete result is therefore not a matched measurement of the Mac
+forward-delete key combination.
 
 ### Comparison with the 2015 Intel Mac events
 
@@ -560,12 +648,14 @@ can alter console modes or implement their own editor (Microsoft, 2022b, 2023).
 
 This was an adaptive engineering session, not a preregistered experiment. The
 same inspector helped design the instrumentation and later read the files.
-There was one machine, one operator, one physical native trial, and no blinded
-independent reviewer. The follow-up added four scripted cases but no additional
-physical operators or platforms. The operator did not independently confirm
-the recovery candidates after disclosure, so exact-match scoring is
-unavailable. The phrases were ASCII; Unicode graphemes, input methods, wrapped
-lines, cursor movement, and multiline editing were not tested. The
+There was one machine, one operator, two physical native trials, and no blinded
+independent reviewer. The follow-ups added four scripted Backspace cases and
+one later physical forward-Delete case but no additional physical operators or
+platforms. The original recovery candidates were not independently confirmed;
+only `N2` froze a candidate before disclosure and then obtained an exact-match
+confirmation. The phrases were ASCII; Unicode graphemes, input methods, wrapped
+lines, mouse positioning, and multiline editing were not tested. Cursor
+movement was limited to Left Arrow navigation in `N2`. The
 deterministic receiver established a line-delivery boundary but was not a
 language model. Exact Python v1 and v2 source snapshots were not preserved.
 The later Intel replication had one physical operator and its exact-match
@@ -583,6 +673,9 @@ repository. It did not establish final author approval, submission status, or
 whether a later manuscript version exists. The requested ordinary-Codex trial
 has not been run in this record, so no result should be predicted from the
 existing recorder-mediated cases.
+The first November 2 launch was abandoned, lacked completed metadata, and is
+excluded from `N2`; its incomplete transcript was not inspected before the
+designated recovery was frozen and remains local rather than published.
 
 ## Conclusion
 
@@ -591,7 +684,12 @@ that was visually erased with physical Backspace presses, while a child using
 processed line input and `ReadConsoleW` received only the committed replacement.
 In a scripted follow-up, starting column—but not the choice between `0x7f` and
 `0x08` Backspace input—determined whether the last of five erasures used the
-left-edge `0D 20 0D` representation on this system.
+left-edge `0D 20 0D` representation on this system. A later physical
+forward-Delete trial retained `bubblegum` through repeated shrinking-line
+redraws while the child received only `cherries`; the frozen recovery was an
+exact post-disclosure match. Thus, physical Windows Backspace and physical
+Windows Delete produced different recorded redraw forms but the same
+recorder/child separation on this system.
 The result supports a recorder-mediated recovery mechanism analogous to the
 documented macOS `script` case, with platform-specific redraw bytes. It does not
 support broader claims about uninstrumented interfaces, model input, cloud
@@ -606,8 +704,9 @@ than broadens, the recorder-mediated claim. Exact Windows transcripts, hashes,
 metadata, source code, a verifier, and verbatim public-comment transcripts are
 retained in this
 repository. The independently authored Intel artifacts remain at their
-immutable upstream commit; independent operator confirmation of the recovered
-strings was not collected.
+immutable upstream commit. Independent operator confirmation was not collected
+for the original Windows or Intel candidates; `N2` separately obtained exact
+confirmation after freezing its recovery.
 
 The November 2 extended abstract accurately frames the strongest positive as
 recorder-mediated agent access, not passive ordinary-Codex receipt. It should
@@ -621,6 +720,9 @@ about durable recovery of a fully erased revision by ordinary Codex.
 Apple Inc. (2022). *script(1): Make typescript of terminal session* [Manual
 page]. Apple Open Source.
 https://github.com/apple-oss-distributions/shell_cmds/blob/e256b9a97f9bbd751305b7af36cf751668fbb849/script/script.1
+
+Apple Inc. (2026, September 14). *Mac keyboard shortcuts*. Apple Support.
+https://support.apple.com/en-us/102650
 
 Blu. (2026a, October 28). *Blu here—I read this line by line, including the raw
 streams, metadata, failed controls, native host, and verifier* [Comment on the

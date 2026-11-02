@@ -65,6 +65,31 @@ are preserved in
 - Native trial: Microsoft Windows 10.0.19045, x64, .NET 9.0.0.
 - Native child exit code: 0.
 
+## Physical forward-Delete follow-up
+
+On November 2, 2026, the existing native ConPTY host collected `N2` with
+physical console input. The operator navigated to the beginning of the draft
+with Left Arrow and used nine physical Windows Delete presses. Generated
+metadata records zero Home and zero Backspace presses. The host's unchanged
+`KeyToSequence` implementation forwarded Delete as `ESC [ 3 ~`; the recorder
+captured only ConPTY output.
+
+The completed transcript, metadata, and frozen recovery note were copied
+without conversion into `evidence/`. Their hashes appear in `SHA256SUMS`.
+Executable SHA-256 was
+`45dbd54d3202d23ff5a8aed7e9e244b861f3da717bae776afa5d1c03e78cff4b`;
+`Program.cs` SHA-256 was
+`b6bb80e44ba0a1188a0ce8887d5d8b394ddef1fa86a189cd5bd62741d6893a81`;
+and project-file SHA-256 was
+`df06cde188539e6bf4e64f00bc16df130b58e00219cb5a7987ddb27bb134199c`.
+
+An earlier incomplete launch from the same interaction was abandoned at the
+operator's request. It produced a 530-byte transcript with SHA-256
+`13923287226cc1289fbcfaf4656cd45c47db2cfe70d337754ba6aaf86a65eb05`
+and no completed metadata file. It was not inspected before the successful
+run's recovery was frozen, remains local, and is not part of the published
+`N2` evidence set.
+
 ## Source preservation
 
 The `.typescript` files, operator-supplied PowerShell screen copy, JSON
@@ -76,12 +101,14 @@ manuscript supersedes them for interpretation.
 The current Python source is the final v3 harness. Exact v1 and v2 source
 snapshots were not frozen during the session and are therefore not reconstructed
 here. Their outputs and metadata remain exact. The native ConPTY source is the
-source used for `N0` and `N1`.
+source used for `N0`, `N1`, and `N2`.
 
 ## Uncollected evidence
 
 - No independent operator record of the erased phrases was created.
-- The operator did not answer the post-recovery exact-match questions.
+- The operator did not answer the post-recovery exact-match questions for the
+  original `P` or `N1` trials. `N2` separately obtained confirmation only after
+  its recovery was frozen and disclosed.
 - No packet capture, HID capture, Windows Event Tracing session, screen video,
   or cloud telemetry was collected.
 - No claim is made about uninstrumented terminals or message composers.

@@ -19,13 +19,18 @@ interpretation.
   committed-control checks, so no receiver was launched.
 - A third Python-harness trial completed the receiver boundary, but its physical
   Windows Del key was deliberately mapped to backward erase by the harness.
-- The final trial used native Windows ConPTY line editing with physical
+- The October 27 native trial used Windows ConPTY line editing with physical
   Backspace input. The raw ConPTY stream retained the abandoned draft, while
   `ReadConsoleW` returned only the committed replacement line.
 - A four-case scripted native follow-up crossed starting column 0 versus 4 with
   Backspace serialized as `0x7f` versus `0x08`. Starting column changed the
   final erase representation; the serialized byte did not change the output
   within either column pair.
+- A November 2 matched native follow-up used the physical Windows Delete key
+  with forward-delete semantics after Left Arrow navigation. Nine physical
+  Delete presses removed `bubblegum`; the output recorder retained the complete
+  draft and repeated shrinking-line redraws, while `ReadConsoleW` returned only
+  `cherries`. The recovery was frozen before Olivia confirmed an exact match.
 - An October 28 ordinary PowerShell follow-up was not connected to a sequential
   recorder available to Aster during input. Olivia later supplied a plain-text
   screen copy and reported that Taylor had expected recovery of a phrase typed
@@ -51,9 +56,10 @@ interpretation.
   launched. That statement is retained as retrospective operator testimony;
   no transcript or metadata from the earlier attempt was present in the public
   source repository at the October 28, 2026 capture cutoff.
-- The operator did not provide a separate exact-match confirmation after any
-  recovered draft was reported. The recovery strings are therefore direct
-  byte-level candidates, not independently scored ground truth.
+- The original recovery strings remain byte-level candidates because no
+  separate post-disclosure exact-match confirmation was collected. `N2`
+  separately froze `bubblegum` before disclosure and then obtained Olivia's
+  exact confirmation.
 
 The full account, including limitations and APA references, is in
 [MANUSCRIPT.md](MANUSCRIPT.md).
@@ -79,6 +85,35 @@ the left-edge explanation for `N1` on this configuration; it does not establish
 a universal cross-platform erase grammar. Exact results are in
 [`data/backspace-matrix.csv`](data/backspace-matrix.csv), with collection notes
 in [`provenance/MATRIX_NOTES.md`](provenance/MATRIX_NOTES.md).
+
+## Physical Windows forward-Delete follow-up
+
+The `N2` follow-up used the same native ConPTY/`ReadConsoleW` boundary as `N1`,
+but it did not remap Delete to Backspace. Olivia typed a nine-character draft,
+navigated to its beginning with Left Arrow, pressed the physical Windows Delete
+key nine times, typed a replacement, and pressed Enter. Generated metadata
+records nine Delete presses, zero Backspace presses, and zero Home presses.
+
+| Layer | Directly preserved `N2` result |
+| --- | --- |
+| Recorder output | `bubblegum`, cursor-left output, nine forward-Delete redraws, then `cherries` |
+| Child input | `CHILD_RECEIVED: cherries` |
+| Frozen recovery | `bubblegum` |
+| Post-disclosure confirmation | Olivia replied `yes exactly`; exact-match outcome = 1 |
+
+The physical forward-Delete output differs from physical Backspace. `N1`
+contained 18 exact `08 20 08` erase triplets and one `0D 20 0D` edge erase.
+`N2` contained no `08 20 08` triplet; it repeatedly redrew the shortening line
+after carriage returns (`ubblegum`, `bblegum`, `blegum`, and so forth). Both
+abandoned drafts remained recoverable from the explicitly enabled sequential
+recorder, while each child received only the submitted replacement.
+
+The exact transcript, generated metadata, confirmation record, executable and
+source hashes, byte offsets, restart boundary, and limitations are documented
+in
+[`evidence/analysis/physical-forward-delete-20261102.md`](evidence/analysis/physical-forward-delete-20261102.md).
+No new figure was added because the byte rendering and short comparison table
+show the key difference directly.
 
 ## Ordinary PowerShell screen-copy follow-up
 

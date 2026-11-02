@@ -10,6 +10,8 @@
   harness to backward erase and any nonempty committed line was accepted.
 - `N0`: scripted native ConPTY control (`alpha` erased, `omega` committed).
 - `N1`: physical-key native ConPTY trial using Backspace.
+- `N2`: physical-key native ConPTY trial using Left Arrow navigation followed
+  by the Windows Delete key with forward-delete semantics.
 - `O1`: ordinary Windows PowerShell follow-up represented only by an
   operator-supplied post-session screen copy. No exact edit stream was retained
   in the supplied artifact.
@@ -32,7 +34,9 @@
 - `committed_line`: the line visible after the erasure region and, when a child
   was launched, reported by that child.
 - `operator_exact_confirmation`: whether the operator separately confirmed the
-  recovered draft after it was reported. No such confirmation was collected.
+  recovered draft after it was reported. The original trials did not collect
+  confirmation; `N2` froze the candidate before disclosure and then obtained an
+  exact confirmation.
 - `erase_triplets_08_20_08`: number of exact backspace-space-backspace byte
   triplets in the relevant transcript.
 - `edge_erase_0d_20_0d`: number of carriage-return-space-carriage-return erases
@@ -51,6 +55,11 @@ The Python trials are explicit simulations: the harness maintained the editable
 buffer and wrote a transcript. `N1` is a native Windows mechanism trial: the
 host forwarded keyboard input to ConPTY and recorded its output pipe, while the
 Windows console line editor maintained the child's buffer.
+
+`N2` used the same native boundary with physical Windows Delete. Unlike `P3`,
+the host did not map Delete to Backspace: `KeyToSequence` forwarded Delete as
+the forward-delete sequence `ESC [ 3 ~`. The output transcript records the
+resulting redraws, not the host's input sequence.
 
 The `M` cases are scripted native ConPTY mechanism tests. The host chose the
 input bytes and pacing but did not maintain the editable buffer; Windows

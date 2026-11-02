@@ -110,6 +110,45 @@ def verify_structures() -> None:
     require(metadata["delete_key_count"] == 0, "N1 Del count is not 0")
     require(metadata["child_exit_code"] == 0, "N1 child exit code is not 0")
 
+    n2 = transcript("conpty-experiment-20261102-123050.typescript")
+    n2_expected = (
+        b"bubblegum"
+        + b"\x08" * 8
+        + b"\x0d"
+        + b"ubblegum  \x0d"
+        + b"bblegum  \x0d"
+        + b"blegum  \x0d"
+        + b"legum  \x0d"
+        + b"egum  \x0d"
+        + b"gum  \x0d"
+        + b"um  \x0d"
+        + b"m  \x0d"
+        + b"  \x0d"
+        + b"cherries"
+    )
+    require(n2_expected in n2, "N2 forward-Delete redraw structure missing")
+    require(n2.index(b"bubblegum") == 425, "N2 draft offset changed")
+    require(n2.index(b"cherries", 425) == 506, "N2 committed offset changed")
+    require(
+        n2.index(b"CHILD_RECEIVED: cherries") == 516,
+        "N2 child marker offset changed",
+    )
+    n2_edit = n2[425:514]
+    require(n2_edit.count(b"\x08") == 8, "N2 cursor-left output count changed")
+    require(n2_edit.count(b"\x0d") == 10, "N2 carriage-return count changed")
+    require(ERASE not in n2_edit, "N2 unexpectedly contains a Backspace triplet")
+    require(b"CHILD_RECEIVED: bubblegum" not in n2, "N2 child received the abandoned draft")
+
+    n2_metadata_path = (
+        ROOT / "evidence" / "metadata" / "conpty-experiment-20261102-123050.metadata.json"
+    )
+    n2_metadata = json.loads(n2_metadata_path.read_text(encoding="utf-8"))
+    require(n2_metadata["status"] == "success", "N2 metadata status is not success")
+    require(n2_metadata["backspace_key_count"] == 0, "N2 Backspace count is not 0")
+    require(n2_metadata["home_key_count"] == 0, "N2 Home count is not 0")
+    require(n2_metadata["delete_key_count"] == 9, "N2 Delete count is not 9")
+    require(n2_metadata["child_exit_code"] == 0, "N2 child exit code is not 0")
+
 
 def verify_matrix() -> None:
     matrix_dir = ROOT / "evidence" / "matrix"
