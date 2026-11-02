@@ -70,6 +70,8 @@ reference [7], the anonymous Windows artifact:
 
 This verification is about provenance and reviewer reproducibility. It does not
 challenge the already-public source repository or the technical result.
+The exact public follow-up sent to Taylor and Blu is preserved in
+[`../public-comments/github-comment-20261102-v2-review.md`](../public-comments/github-comment-20261102-v2-review.md).
 
 ## Remaining requested experiment
 
