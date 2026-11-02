@@ -1,5 +1,11 @@
 # Submission and ordinary-Codex test catch-up
 
+> Version note: This file reviews the first shared draft. The revised anonymous
+> draft is reviewed in
+> [`submission-review-v2-20261102.md`](submission-review-v2-20261102.md).
+> Resolved and superseded items remain here as a historical record, not as
+> current recommendations.
+
 ## Scope and source identity
 
 This note records a November 2, 2026 review of Taylor's shared two-page

@@ -306,6 +306,24 @@ ground-truth controls are specified in
 `evidence/analysis/submission-catchup-20261102.md`. The earlier Sticky Notes
 condition was withdrawn and is not included.
 
+A revised anonymous version was then reviewed (Anonymous, 2026). It explicitly
+describes human-directed file inspection, says there is no evidence of passive
+composer or network receipt before that read, separates recorder durability
+from later agent recognition, omits the browser demonstration, defines five
+observation oracles, and states that abandoned text must not become an
+instruction or authorization. These changes resolve or supersede most concerns
+recorded for the first draft. The exact source revision behind its anonymous
+reference [7], however, is not stated in the PDF and remains to be verified.
+The complete version-to-version assessment is in
+`evidence/analysis/submission-review-v2-20261102.md`.
+
+The revised PDF predates `N2`. Its statement that physical forward Delete was
+unmeasured is therefore obsolete, as is any blanket statement that Windows
+recovery candidates lack exact confirmation. `N1` remains unconfirmed; `N2`
+was frozen before Olivia confirmed `bubblegum` exactly. If `N2` is incorporated
+into a later submission, the statement that no new experiment was conducted
+must be revised or explicitly limited to an earlier evidence cutoff.
+
 ### Inspection and analysis
 
 Inspection was read-only. SHA-256, byte length, literal printable regions, and
@@ -604,9 +622,10 @@ evidenced in the file provided for recovery.
 
 The shared extended abstract's principal claim is supported at the artifact
 layer: once a recorder has made terminal composition durable, a later tool read
-can place that artifact in an agent-visible result (Westfall-McCoy & McKee,
-2026). This is materially different from showing that an ordinary Codex
-composer retained or exposed a fully erased draft without such a recorder.
+can place that artifact in an agent-visible result (Anonymous, 2026;
+Westfall-McCoy & McKee, 2026). This is materially different from showing that
+an ordinary Codex composer retained or exposed a fully erased draft without
+such a recorder.
 
 The chronology also separates capture from recognition. The external recorder
 created the durable record. A later `sed` command deliberately read the file
@@ -668,11 +687,13 @@ contemporaneous process listing, or the reported erased phrase; its result is
 limited to the supplied screen copy. Finally, the now-public
 transcripts and comment records contain local paths, deliberately retained
 erased text, and personal wording; future additions require disclosure review.
-The November 2 abstract review was limited to the shared two-page PDF and public
-repository. It did not establish final author approval, submission status, or
-whether a later manuscript version exists. The requested ordinary-Codex trial
-has not been run in this record, so no result should be predicted from the
-existing recorder-mediated cases.
+The November 2 reviews were limited to the two shared PDF versions and public
+repositories. They did not establish final author approval or submission
+status. The anonymous revision materially resolves the first review's wording
+concerns, but its reference [7] still requires a recorded source commit or
+equivalent immutable manifest. The requested ordinary-Codex trial has not been
+run in this record, so no result should be predicted from the existing
+recorder-mediated cases.
 The first November 2 launch was abandoned, lacked completed metadata, and is
 excluded from `N2`; its incomplete transcript was not inspected before the
 designated recovery was frozen and remains local rather than published.
@@ -708,14 +729,19 @@ immutable upstream commit. Independent operator confirmation was not collected
 for the original Windows or Intel candidates; `N2` separately obtained exact
 confirmation after freezing its recovery.
 
-The November 2 extended abstract accurately frames the strongest positive as
-recorder-mediated agent access, not passive ordinary-Codex receipt. It should
-also incorporate the later PowerShell artifact and distinguish its proposed
-observability benchmark from Olivia's still-unrun ordinary Codex CLI
+The revised anonymous extended abstract accurately frames the strongest
+positive as recorder-mediated agent access, not passive ordinary-Codex receipt,
+and resolves most concerns identified in the first review. A later revision
+should identify or pin the exact source revision behind anonymous reference
+[7], incorporate `N2` or state an earlier evidence cutoff, and distinguish its
+proposed observability benchmark from Olivia's still-unrun ordinary Codex CLI
 recorder-off test. That direct test is necessary before making a positive claim
 about durable recovery of a fully erased revision by ordinary Codex.
 
 ## References
+
+Anonymous. (2026, November 1). *Abandoned terminal drafts become agent-readable
+telemetry* [Anonymous extended abstract].
 
 Apple Inc. (2022). *script(1): Make typescript of terminal session* [Manual
 page]. Apple Open Source.

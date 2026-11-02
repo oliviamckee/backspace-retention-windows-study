@@ -182,10 +182,25 @@ from later tool-mediated access.
 The exact request, controls, source identities, shared-PDF hash, submission
 distinctions, and APA references are in
 [`evidence/analysis/submission-catchup-20261102.md`](evidence/analysis/submission-catchup-20261102.md).
-The PDF itself is not redistributed. The withdrawn Sticky Notes condition is
-not part of the requested test. No new figure was added because the existing
-figure already explains the recorder boundary and the remaining question is a
-condition distinction rather than a new mechanism.
+That note is retained as the version-one review.
+
+A revised anonymous draft materially resolves the earlier concerns about
+passive receipt, recorder durability versus later recognition, the browser
+demonstration, and the authority of abandoned text. The version-two review
+marks each earlier item as resolved, superseded, partly addressed, or still
+open in
+[`evidence/analysis/submission-review-v2-20261102.md`](evidence/analysis/submission-review-v2-20261102.md).
+The revised PDF predates `N2`, so its statements that physical forward Delete
+was unmeasured and that Windows candidates lacked exact confirmation are now
+outdated: `N1` remains unconfirmed, while `N2` was frozen before exact-match
+confirmation. Before submission, Taylor and Blu should also verify the exact
+source commit and immutable contents exposed by anonymous reference [7].
+
+The PDFs themselves are not redistributed. The withdrawn Sticky Notes
+condition is not part of the requested test. The ordinary-Codex recorder-off
+test remains unrun in this record. No new figure was added because the existing
+figure already explains the recorder boundary and the version-status table
+communicates the remaining distinctions directly.
 
 ## Repository layout
 
