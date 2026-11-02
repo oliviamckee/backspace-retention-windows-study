@@ -32,6 +32,16 @@ interpretation.
   and erased before `phoebe is sleeping`. The copy contains the submitted
   `phoebe is sleeping` entry but no erased draft, Backspace byte, Delete byte,
   or terminal escape byte. No phrase could be recovered from that artifact.
+- Taylor and Blu's October 28 retrospective audit states that the known
+  content-complete positive used an external `/usr/bin/script` recorder, that
+  ordinary graphical Codex persists its latest current draft, and that no
+  surviving artifact establishes durable retention of a fully erased earlier
+  revision by an ordinary Codex app or CLI. They state that no new retention
+  experiment was run for that answer.
+- A November 2 shared extended abstract likewise describes recorder-mediated,
+  later tool access rather than passive receipt by an ordinary Codex composer.
+  Olivia's requested direct recorder-off Codex CLI trial therefore remains
+  unrun in the inspected record.
 - Public review of the Windows record prompted the matrix and a separate,
   instrumented replication on 2015 Intel Mac hardware. That later Mac
   replication used `/usr/bin/script -q` and published its exact artifacts in
@@ -114,6 +124,33 @@ attempt, and defined the remaining evidence boundary are preserved in
 No new figure was added for this update because the table distinguishes the
 three records directly; Figure 1 remains limited to the Windows mechanism and
 byte evidence.
+
+## November 2 submission and ordinary-Codex catch-up
+
+Taylor shared a two-page extended abstract titled *Abandoned Terminal Drafts
+Become Agent-Readable Telemetry*, naming Taylor Westfall-McCoy and Olivia McKee
+as authors. The review found that its main claim is narrower than ordinary
+Codex retention: terminal echo entered an output recorder, and a later
+deliberate tool read exposed that artifact to an agent. The abstract says no
+new experiment was conducted and does not claim that an ordinary Codex
+composer or network service received the erased draft during typing.
+
+The missing experiment is now specified as a fresh, directly launched Codex
+CLI session with no Blu Offline wrapper or external content recorder. Taylor
+would type a harmless phrase without submitting it, erase it completely with
+Backspace, submit an unrelated replacement, and only then ask the agent to
+identify the erased phrase. The first answer would be frozen before tool use or
+ground-truth disclosure. An optional second endpoint could allow read-only
+inspection of ordinary Codex-created state, separating conversational access
+from later tool-mediated access.
+
+The exact request, controls, source identities, shared-PDF hash, submission
+distinctions, and APA references are in
+[`evidence/analysis/submission-catchup-20261102.md`](evidence/analysis/submission-catchup-20261102.md).
+The PDF itself is not redistributed. The withdrawn Sticky Notes condition is
+not part of the requested test. No new figure was added because the existing
+figure already explains the recorder boundary and the remaining question is a
+condition distinction rather than a new mechanism.
 
 ## Repository layout
 

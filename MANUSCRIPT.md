@@ -36,6 +36,11 @@ These observations do not establish independent retention by an uninstrumented
 terminal, a message composer, a language model, or a network service. Because
 the operators did not separately confirm the recovered drafts after disclosure,
 exact agreement with an independent ground-truth record was not scored.
+A November 2 review of a shared extended abstract and the updated public source
+repository did not change that boundary. The public retrospective answer states
+that the known complete positive used an external recorder and that no new
+ordinary-Codex retention experiment was run. A direct, blinded, recorder-off
+Codex CLI test requested by Olivia therefore remains prospective.
 
 ## Introduction
 
@@ -246,6 +251,31 @@ recorded. The analysis did not treat absence from this screen copy as proof
 that no earlier phrase had been typed; it asked only whether the supplied file
 retained a recoverable candidate.
 
+### November 2 submission and public-record review
+
+Taylor supplied a two-page PDF titled *Abandoned Terminal Drafts Become
+Agent-Readable Telemetry*, naming Taylor Westfall-McCoy and Olivia McKee as
+authors (Westfall-McCoy & McKee, 2026). The local file was 349,333 bytes with
+SHA-256
+`105e379ee77e5d26fa57c0815c7761579d47323fbc190c9149ec3efd56465088`.
+The PDF was reviewed but is not redistributed in this repository.
+
+The review compared the abstract with the source repository at immutable
+commit `32e87780c39dfe6137e032925e3090a356d88faa` and with this repository's
+ordinary PowerShell follow-up. The abstract states that its analysis is
+retrospective, describes a recorder-to-tool acquisition path, and disclaims
+evidence that an ordinary Codex composer or network service received the draft
+before the deliberate transcript read. Its citation to this Windows repository
+uses matrix commit `5815c013...`, which predates the ordinary PowerShell
+screen-copy commit `bba6a179...`.
+
+No new experiment was performed for this update. Olivia requested that Taylor
+run a fresh ordinary Codex CLI test without the Blu Offline launcher or another
+external content recorder. The requested condition, two staged endpoints, and
+ground-truth controls are specified in
+`evidence/analysis/submission-catchup-20261102.md`. The earlier Sticky Notes
+condition was withdrawn and is not included.
+
 ### Inspection and analysis
 
 Inspection was read-only. SHA-256, byte length, literal printable regions, and
@@ -378,6 +408,22 @@ No additional figure was added for this comparison. The table makes the
 evidence-type distinction directly, while Figure 1 remains confined to the
 Windows mechanism it depicts.
 
+### Current ordinary-Codex evidence boundary
+
+Taylor and Blu's retrospective repository document states that the historical
+content-complete positive is explained by terminal echo plus the external
+`/usr/bin/script -q` recorder. It also reports that graphical Codex persists
+the latest current unsent draft but that clearing removes the logical entry,
+and that no surviving ordinary Codex app or CLI artifact demonstrates a fully
+erased, never-submitted prior revision. The document explicitly states that no
+new retention experiment was run (McCoy & Blu, 2026c).
+
+The November 1 live terminal demonstration and browser version reproduce or
+simulate the known recorder/child separation. Their own scope statement says
+they do not measure model memory, passive Codex access, or cloud receipt
+(McCoy & Blu, 2026d). They therefore do not constitute the requested ordinary
+Codex recorder-off condition.
+
 ## Discussion
 
 ### Principal observation
@@ -466,6 +512,32 @@ not establish whether any separate recorder existed outside the supplied
 artifact; it establishes only that none was available to Aster and none is
 evidenced in the file provided for recovery.
 
+### Agent-readable telemetry versus ordinary-Codex retention
+
+The shared extended abstract's principal claim is supported at the artifact
+layer: once a recorder has made terminal composition durable, a later tool read
+can place that artifact in an agent-visible result (Westfall-McCoy & McKee,
+2026). This is materially different from showing that an ordinary Codex
+composer retained or exposed a fully erased draft without such a recorder.
+
+The chronology also separates capture from recognition. The external recorder
+created the durable record. A later `sed` command deliberately read the file
+and returned its standard output through the Codex tool channel. Task framing
+or a human signal may have affected whether the agent recognized the privacy
+meaning of bytes already in that result, but the evidence does not establish
+awareness as the cause of capture, durability, or access (McCoy & Blu, 2026c).
+
+The missing direct test is consequently simple but must preserve the boundary.
+In a fresh, directly launched Codex CLI session with no external content
+recorder, Taylor should type a harmless phrase without submitting it, erase it
+completely with physical Backspace, submit an unrelated replacement, and only
+then ask the agent for the exact erased phrase. The first answer should be
+frozen without tools. A separately labeled second endpoint may allow read-only
+inspection of ordinary Codex-created state. Offline ground truth and an
+independently collected process audit must remain inaccessible to the agent
+until both answers are frozen. This tests conversational availability and
+tool-mediated Codex-native persistence separately.
+
 ### Privacy and claim boundaries
 
 The privacy-relevant finding is narrow: an explicitly enabled exact-stream
@@ -506,6 +578,11 @@ contemporaneous process listing, or the reported erased phrase; its result is
 limited to the supplied screen copy. Finally, the now-public
 transcripts and comment records contain local paths, deliberately retained
 erased text, and personal wording; future additions require disclosure review.
+The November 2 abstract review was limited to the shared two-page PDF and public
+repository. It did not establish final author approval, submission status, or
+whether a later manuscript version exists. The requested ordinary-Codex trial
+has not been run in this record, so no result should be predicted from the
+existing recorder-mediated cases.
 
 ## Conclusion
 
@@ -531,6 +608,13 @@ retained in this
 repository. The independently authored Intel artifacts remain at their
 immutable upstream commit; independent operator confirmation of the recovered
 strings was not collected.
+
+The November 2 extended abstract accurately frames the strongest positive as
+recorder-mediated agent access, not passive ordinary-Codex receipt. It should
+also incorporate the later PowerShell artifact and distinguish its proposed
+observability benchmark from Olivia's still-unrun ordinary Codex CLI
+recorder-off test. That direct test is necessary before making a positive claim
+about durable recovery of a fully erased revision by ordinary Codex.
 
 ## References
 
@@ -560,6 +644,14 @@ GitHub. https://github.com/tmccoy678/Backspace-Text-Retention
 McCoy, T., & Blu. (2026b). *Recorded-PTY replication on a 2015 Intel Mac* [Data,
 source code, and research record]. GitHub.
 https://github.com/tmccoy678/Backspace-Text-Retention/tree/eafc3a96f8b21a35acb89dd6619c806935720686/replications/intel-mac-2026-10-27
+
+McCoy, T., & Blu. (2026c, October 28). *Retrospective answer to Olivia's
+ordinary-Codex retention hypothesis* [Repository document]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/blob/32e87780c39dfe6137e032925e3090a356d88faa/docs/LIV-CODEX-HYPOTHESIS-RETROSPECTIVE-VERDICT.md
+
+McCoy, T., & Blu. (2026d, November 1). *Live Backspace demonstration*
+[Repository evidence]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/tree/32e87780c39dfe6137e032925e3090a356d88faa/evidence/demonstrations/2026-11-01
 
 McKee, O., & Aster. (2026, October 28). *Thank you, Taylor and Blu. Taylor’s
 explanation answers my original question at the level the evidence permits*
@@ -596,3 +688,6 @@ https://learn.microsoft.com/en-us/windows/terminal/samples
 The Open Group. (2004). *General terminal interface*. In *The Open Group Base
 Specifications Issue 6, IEEE Std 1003.1, 2004 edition*.
 https://pubs.opengroup.org/onlinepubs/007904975/basedefs/xbd_chap11.html
+
+Westfall-McCoy, T., & McKee, O. (2026, November 2). *Abandoned terminal drafts
+become agent-readable telemetry* [Unpublished extended abstract].
