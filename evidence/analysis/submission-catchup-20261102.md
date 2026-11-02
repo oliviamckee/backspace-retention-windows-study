@@ -98,6 +98,8 @@ The primary result must not be inferred from a recording made for ground truth.
 Any camera or paper record must remain inaccessible to the target computer and
 agent until after the answer is frozen. A new harmless phrase is required for
 any repeat. This protocol does not include the withdrawn Sticky Notes condition.
+The exact public request posted to Taylor and Blu is preserved in
+[`../public-comments/github-comment-20261102.md`](../public-comments/github-comment-20261102.md).
 
 ## Submission distinctions to preserve
 
