@@ -23,10 +23,11 @@ four `08 20 08` erasures plus one `0D 20 0D` edge erasure; column 4 produced
 five `08 20 08` erasures. The two input-byte conditions had identical output
 within each column pair after normalizing the printed case label. These
 observations prompted a public cross-platform exchange and a separately
-instrumented replication on 2015 Intel Mac hardware. The later Intel
-replication published a `/usr/bin/script -q` transcript and terminal-state
-records; it was distinct from an earlier ordinary-shell attempt for which no
-transcript or metadata was present in the inspected public record. These
+instrumented replication on 2015 Intel Mac hardware. A later public audit
+distinguished a September ordinary-Terminal attempt, an October ordinary-shell
+attempt, and the controlled October replication. The controlled replication
+published a `/usr/bin/script -q` transcript and terminal-state records; the
+ordinary attempts did not preserve a sequential erase trace. These
 recorded conditions were contrasted with an October 28 ordinary Windows
 PowerShell follow-up. Aster had no live access to that terminal; a later
 1,579-byte rendered-screen copy contained `phoebe is sleeping` but no earlier
@@ -45,10 +46,13 @@ the original trial operators did not separately confirm their recovered drafts,
 exact agreement remained unscored for those records; the later forward-Delete
 trial obtained confirmation only after its recovery was frozen and disclosed.
 A November 2 review of a shared extended abstract and the updated public source
-repository did not change that boundary. The public retrospective answer states
-that the known complete positive used an external recorder and that no new
-ordinary-Codex retention experiment was run. A direct, blinded, recorder-off
-Codex CLI test requested by Olivia therefore remains prospective.
+repository did not change that boundary. Taylor subsequently published a fresh
+ordinary Codex CLI observation with no detected external recorder in its live
+process ancestry. After the operator erased an unpublished draft and submitted
+only `piggy is sleeping`, the first no-tool answer supplied no recovery
+candidate. No tool-assisted second endpoint was collected. This is a bounded
+negative first-answer observation, not proof of absence from every system
+layer.
 
 ## Introduction
 
@@ -246,17 +250,20 @@ as ordinary UTF-8 repository text; the file does not claim to reproduce the
 API's JSON bytes.
 
 The evidence policy distinguished among direct artifacts, public operator
-statements, and absence from the inspected public record. Taylor's statement
-that the earlier Intel attempt occurred in an already-open ordinary Terminal
-and did not launch `/usr/bin/script` was classified as retrospective operator
-testimony (McCoy, 2026). The later Intel replication was classified separately
-because its upstream directory publishes the launcher, receiver, transcript,
-terminal modes, checksums, and frozen recovery note (McCoy & Blu, 2026b). A
-search of the source repository's public `main` branch, public remote branches,
-relevant commit comments, and pull-request 2 comments found no transcript or
-metadata from the earlier ordinary-shell attempt at the capture cutoff. That
-search result was not treated as proof that no private or subsequently
-recovered artifact exists (McKee & Aster, 2026).
+statements, and absence from the inspected public record. At the October 28
+capture cutoff, Taylor's statement that an earlier Intel attempt occurred in an
+already-open ordinary Terminal and did not launch `/usr/bin/script` was
+classified as retrospective operator testimony (McCoy, 2026). The controlled
+Intel replication was classified separately because its upstream directory
+publishes the launcher, receiver, transcript, terminal modes, checksums, and
+frozen recovery note (McCoy & Blu, 2026b). A later public audit at upstream
+commit `f4be7cbd...` distinguished an unrecorded September Terminal attempt,
+an October ordinary-shell attempt with saved final-state output, and the
+controlled October replication (McCoy & Blu, 2026e). The September audit
+publishes bounded contemporaneous excerpts, search coverage, byte analysis,
+and an authorized redacted shell-history derivative. The history has no
+per-entry timestamps and preserves no erased draft; its committed-line
+association remains contextual rather than proved.
 
 ### Ordinary PowerShell screen-copy follow-up
 
@@ -323,6 +330,39 @@ recovery candidates lack exact confirmation. `N1` remains unconfirmed; `N2`
 was frozen before Olivia confirmed `bubblegum` exactly. If `N2` is incorporated
 into a later submission, the statement that no new experiment was conducted
 must be revised or explicitly limited to an earlier evidence cutoff.
+
+### Subsequent public upstream evidence
+
+After the two submission reviews were frozen, Taylor and Blu published upstream
+commit `f4be7cbd8a4b1cf50e9dd503de0b7877e801d9aa` (McCoy & Blu,
+2026e, 2026f). Its privacy-limited chronology documents that Blu announced
+owner-only transcript capture, tested `/usr/bin/script`, and embedded the
+recorder in the Blu Offline launcher after broad authorization but without a
+preserved Taylor request naming `script`. The complete midnight acceptance
+transcript later entered a Codex tool result before Blu's next response. That
+response evaluated technical acceptance checks but did not identify the erase
+bytes' privacy significance or uniquely depend on them. The first preserved
+explicit privacy interpretation followed an authorized transcript inspection
+at 2:28 PM. This chronology establishes artifact availability before the later
+action; it does not establish subjective recognition, non-recognition, guilt,
+or concealment.
+
+The same upstream commit publishes the requested ordinary-Codex recorder-off
+observation (McCoy & Blu, 2026f). In Apple Terminal, Codex CLI 0.166.0 using
+`gpt-5.6-sol` at `xhigh` reasoning received only the replacement `piggy is
+sleeping`. Its first answer supplied no candidate for the fully erased phrase.
+A live post-result ancestry derivative showed `Terminal -> login -> zsh ->
+Codex` and no detected `/usr/bin/script`, `tee`, `asciinema`, or other external
+content recorder. The unpublished ground truth was not needed for exact-match
+scoring because no candidate was produced. No tool-assisted second endpoint was
+collected. The result is therefore limited to one interface, version, prompt
+sequence, first answer, and post-result ancestry inspection.
+
+The private source packet used to audit this public chronology is not
+redistributed here. This manuscript relies only on the privacy-reviewed public
+upstream summaries, derivatives, and immutable commit links. The complete
+status update is preserved in
+`evidence/analysis/upstream-evidence-update-20261102.md`.
 
 ### Inspection and analysis
 
@@ -678,10 +718,11 @@ movement was limited to Left Arrow navigation in `N2`. The
 deterministic receiver established a line-delivery boundary but was not a
 language model. Exact Python v1 and v2 source snapshots were not preserved.
 The later Intel replication had one physical operator and its exact-match
-confirmation remained unscored. The earlier Intel launch state is documented
-by retrospective operator testimony rather than a contemporaneous artifact,
-and no earlier-attempt transcript or metadata was present in the inspected
-public upstream locations at the capture cutoff. The ordinary PowerShell
+confirmation remained unscored. The subsequent upstream audit supplies bounded
+contemporaneous excerpts and search records for the September Intel attempt,
+but no native sequential transcript; its redacted shell history has no
+per-entry timestamps and no erased draft. The October ordinary-shell attempt
+likewise preserves final-state output rather than an erase trace. The ordinary PowerShell
 follow-up did not preserve a keystroke log, an exact terminal stream, a
 contemporaneous process listing, or the reported erased phrase; its result is
 limited to the supplied screen copy. Finally, the now-public
@@ -691,9 +732,11 @@ The November 2 reviews were limited to the two shared PDF versions and public
 repositories. They did not establish final author approval or submission
 status. The anonymous revision materially resolves the first review's wording
 concerns, but its reference [7] still requires a recorded source commit or
-equivalent immutable manifest. The requested ordinary-Codex trial has not been
-run in this record, so no result should be predicted from the existing
-recorder-mediated cases.
+equivalent immutable manifest. The subsequent ordinary-Codex observation
+supplied no first-answer recovery candidate, but it had one operator, one
+interface and version, no tool-assisted endpoint, and a process inspection
+performed after the result. It does not prove universal absence of retention or
+resolve provider telemetry.
 The first November 2 launch was abandoned, lacked completed metadata, and is
 excluded from `N2`; its incomplete transcript was not inspected before the
 designated recovery was frozen and remains local rather than published.
@@ -715,10 +758,11 @@ The result supports a recorder-mediated recovery mechanism analogous to the
 documented macOS `script` case, with platform-specific redraw bytes. It does not
 support broader claims about uninstrumented interfaces, model input, cloud
 telemetry, or hardware architecture. A later recorder-wrapped replication on
-2015 Intel Mac hardware published a functionally similar separation, while an
-earlier ordinary-shell attempt remains supported only by Taylor's later account
-that `script` was not launched and by the absence of an artifact in the
-inspected public record. A later ordinary PowerShell screen copy preserved the
+2015 Intel Mac hardware published a functionally similar separation. A public
+upstream audit now distinguishes an unrecorded September Intel Terminal attempt,
+an October ordinary-shell attempt with only final-state output, and the
+controlled October replication. Neither ordinary attempt preserves a sequential
+erase trace. A later ordinary PowerShell screen copy preserved the
 submitted `phoebe is sleeping` entry but not the phrase Olivia reported typing
 and erasing immediately beforehand. That negative result reinforces, rather
 than broadens, the recorder-mediated claim. Exact Windows transcripts, hashes,
@@ -734,9 +778,11 @@ positive as recorder-mediated agent access, not passive ordinary-Codex receipt,
 and resolves most concerns identified in the first review. A later revision
 should identify or pin the exact source revision behind anonymous reference
 [7], incorporate `N2` or state an earlier evidence cutoff, and distinguish its
-proposed observability benchmark from Olivia's still-unrun ordinary Codex CLI
-recorder-off test. That direct test is necessary before making a positive claim
-about durable recovery of a fully erased revision by ordinary Codex.
+proposed observability benchmark from the subsequent ordinary Codex CLI
+recorder-off observation. That observation produced no first-answer recovery
+candidate and therefore supplies no positive evidence of durable recovery by
+ordinary Codex; its single bounded negative does not establish universal
+absence.
 
 ## References
 
@@ -780,6 +826,14 @@ https://github.com/tmccoy678/Backspace-Text-Retention/blob/32e87780c39dfe6137e03
 McCoy, T., & Blu. (2026d, November 1). *Live Backspace demonstration*
 [Repository evidence]. GitHub.
 https://github.com/tmccoy678/Backspace-Text-Retention/tree/32e87780c39dfe6137e032925e3090a356d88faa/evidence/demonstrations/2026-11-01
+
+McCoy, T., & Blu. (2026e, November 2). *September 21 pre-control evidence and
+Intel-attempt audit* [Repository investigation]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/tree/f4be7cbd8a4b1cf50e9dd503de0b7877e801d9aa/investigations/2026-09-21-pre-control-and-intel
+
+McCoy, T., & Blu. (2026f, November 2). *Ordinary Codex recorder-off
+observation* [Repository investigation]. GitHub.
+https://github.com/tmccoy678/Backspace-Text-Retention/tree/f4be7cbd8a4b1cf50e9dd503de0b7877e801d9aa/investigations/2026-11-02-ordinary-codex-recorder-off
 
 McKee, O., & Aster. (2026, October 28). *Thank you, Taylor and Blu. Taylor’s
 explanation answers my original question at the level the evidence permits*

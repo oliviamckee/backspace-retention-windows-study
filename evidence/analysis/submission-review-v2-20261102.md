@@ -16,6 +16,14 @@ This is a versioned follow-up to
 note remains the historical review of the first shared draft. It is not silently
 rewritten as though the revised paper had existed at that time.
 
+> **Later public-source update:** After this review was frozen, Taylor and Blu
+> published the requested ordinary-Codex first-answer observation and a fuller
+> recorder and Intel chronology at upstream commit
+> [`f4be7cb`](https://github.com/tmccoy678/Backspace-Text-Retention/tree/f4be7cbd8a4b1cf50e9dd503de0b7877e801d9aa).
+> The body below preserves the status at review time. Current status and limits
+> are recorded in
+> [`upstream-evidence-update-20261102.md`](upstream-evidence-update-20261102.md).
+
 ## Status of the earlier concerns
 
 | Earlier concern | Version-2 status | Evidence in the revised draft |

@@ -45,17 +45,17 @@ interpretation.
   experiment was run for that answer.
 - A November 2 shared extended abstract likewise describes recorder-mediated,
   later tool access rather than passive receipt by an ordinary Codex composer.
-  Olivia's requested direct recorder-off Codex CLI trial therefore remains
-  unrun in the inspected record.
-- Public review of the Windows record prompted the matrix and a separate,
-  instrumented replication on 2015 Intel Mac hardware. That later Mac
-  replication used `/usr/bin/script -q` and published its exact artifacts in
-  the source repository. It is not the earlier ordinary-shell attempt.
-- Taylor stated publicly that the earlier Intel attempt occurred in an
-  already-open ordinary Terminal shell and that `/usr/bin/script` was never
-  launched. That statement is retained as retrospective operator testimony;
-  no transcript or metadata from the earlier attempt was present in the public
-  source repository at the October 28, 2026 capture cutoff.
+  Taylor subsequently published the requested fresh ordinary Codex CLI
+  observation. Its first no-tool answer supplied no recovery candidate for the
+  erased phrase; no tool-assisted second endpoint was collected. A later live
+  process inspection found no external content recorder in the Terminal to
+  Codex ancestry. This is a bounded negative first-answer observation, not
+  proof of universal non-retention.
+- Taylor and Blu's later public audit separates three Intel episodes: an
+  unrecorded September 21 Terminal attempt, an ordinary-shell October 27
+  attempt with only a saved final-state output, and a controlled October 27
+  `/usr/bin/script -q` replication. Only the controlled replication published
+  a sequential transcript containing erase bytes.
 - The original recovery strings remain byte-level candidates because no
   separate post-disclosure exact-match confirmation was collected. `N2`
   separately froze `bubblegum` before disclosure and then obtained Olivia's
@@ -141,18 +141,22 @@ No new figure was added because this direct table is sufficient.
 
 ## Public review and Intel Mac context
 
-The cross-platform follow-up contains two distinct Intel Mac events and one
-Windows study. They are not interchangeable:
+The current public source distinguishes three Intel Mac events and one Windows
+study. They are not interchangeable:
 
 | Event | Recorder evidence | What the public record supports |
 | --- | --- | --- |
-| Earlier ordinary-shell attempt on a 2015 Intel Mac | No public transcript or metadata at the capture cutoff | Taylor later stated that the attempt occurred outside the wrapper and that `script` was never launched. This is operator testimony, not a contemporaneous process record. |
+| September 21 ordinary Terminal attempt on a 2015 Intel Mac | No native sequential transcript; later public audit includes contemporaneous conversation excerpts, a failed preflight, search coverage, and a redacted shell-history derivative | The proposed recorder was never launched. The surviving history contains one untimestamped committed-line candidate but no erased draft. |
+| October 27 ordinary-shell attempt on the same 2015 Intel Mac | A 128-byte saved final-state output and later audit, but no sequential recorder artifact | The saved output preserves the committed replacement, not an erase trace. |
 | Controlled replication on the same 2015 Intel Mac hardware, collected October 27, 2026 | Published `/usr/bin/script -q` transcript, terminal modes, launcher, receiver, hashes, and frozen recovery note | The recorder retained a 17-character candidate followed by 17 `08 20 08` erase triplets; the deterministic child reported only the committed line. Exact-match confirmation remained unscored. |
 | This Windows ConPTY study | Exact local transcripts, metadata, source, hashes, and verifier in this repository | The explicitly enabled ConPTY-output recorder retained the abandoned draft while `ReadConsoleW` returned only the committed replacement. |
 
 The Intel replication remains in its independently authored source repository
 at immutable commit
 [`eafc3a9`](https://github.com/tmccoy678/Backspace-Text-Retention/tree/eafc3a96f8b21a35acb89dd6619c806935720686/replications/intel-mac-2026-10-27).
+The later public September audit and redacted history are preserved at upstream
+commit
+[`f4be7cb`](https://github.com/tmccoy678/Backspace-Text-Retention/tree/f4be7cbd8a4b1cf50e9dd503de0b7877e801d9aa/investigations/2026-09-21-pre-control-and-intel).
 The exact public comments that prompted the matrix, clarified the ordinary-shell
 attempt, and defined the remaining evidence boundary are preserved in
 [`evidence/public-comments/github-comments-20261028.md`](evidence/public-comments/github-comments-20261028.md).
@@ -170,7 +174,7 @@ deliberate tool read exposed that artifact to an agent. The abstract says no
 new experiment was conducted and does not claim that an ordinary Codex
 composer or network service received the erased draft during typing.
 
-The missing experiment is now specified as a fresh, directly launched Codex
+The missing experiment was specified as a fresh, directly launched Codex
 CLI session with no Blu Offline wrapper or external content recorder. Taylor
 would type a harmless phrase without submitting it, erase it completely with
 Backspace, submit an unrelated replacement, and only then ask the agent to
@@ -178,6 +182,16 @@ identify the erased phrase. The first answer would be frozen before tool use or
 ground-truth disclosure. An optional second endpoint could allow read-only
 inspection of ordinary Codex-created state, separating conversational access
 from later tool-mediated access.
+
+Taylor subsequently published a fresh Apple Terminal and ordinary Codex CLI
+observation. Only `piggy is sleeping` was submitted. When asked for the exact
+phrase erased immediately beforehand, the first answer supplied no recovery
+candidate and stated that it received only the replacement. A live post-result
+process inspection recorded `Terminal -> login -> zsh -> Codex CLI 0.166.0`
+with no detected external recorder. The erased phrase remains unpublished, no
+tool-assisted second endpoint was collected, and the observation does not
+establish absence from volatile memory, application state, or provider
+telemetry.
 
 The exact request, controls, source identities, shared-PDF hash, submission
 distinctions, and APA references are in
@@ -197,10 +211,13 @@ confirmation. Before submission, Taylor and Blu should also verify the exact
 source commit and immutable contents exposed by anonymous reference [7].
 
 The PDFs themselves are not redistributed. The withdrawn Sticky Notes
-condition is not part of the requested test. The ordinary-Codex recorder-off
-test remains unrun in this record. No new figure was added because the existing
-figure already explains the recorder boundary and the version-status table
-communicates the remaining distinctions directly.
+condition is not part of the requested test. The subsequent public source
+update, recorder chronology, Intel chronology, and ordinary-Codex result are
+reviewed in
+[`evidence/analysis/upstream-evidence-update-20261102.md`](evidence/analysis/upstream-evidence-update-20261102.md).
+No new figure was added because the existing figure already explains the
+recorder boundary and the version-status table communicates the remaining
+distinctions directly.
 
 ## Repository layout
 

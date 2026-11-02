@@ -5,6 +5,9 @@
 > [`submission-review-v2-20261102.md`](submission-review-v2-20261102.md).
 > Resolved and superseded items remain here as a historical record, not as
 > current recommendations.
+> A later public upstream update, including the subsequently run ordinary-Codex
+> first-answer observation, is recorded in
+> [`upstream-evidence-update-20261102.md`](upstream-evidence-update-20261102.md).
 
 ## Scope and source identity
 
